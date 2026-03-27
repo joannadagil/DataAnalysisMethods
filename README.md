@@ -8,7 +8,7 @@ https://www.kaggle.com/datasets/krzysztofjamroz/apartment-prices-in-poland
 
 Pushujcie może od razu na main?
 
-Dane znajdują się w folderze dane.
+Dane znajdują się w folderze dane. Nie wiem czemu tam są po 2 wersje tych danych, ja zaczęłam robić na tych "apartments_pl_202x_xx.csv"
 
 Plik latexowy do raportu jest folderze raport, jest też tam ostatnio skompilowany pdf.
 
