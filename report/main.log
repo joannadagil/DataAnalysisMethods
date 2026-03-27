@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.28)  27 MAR 2026 17:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.28)  27 MAR 2026 19:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -737,46 +737,44 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
 <to be read again> 
                    \relax 
 l.105 \chapter
-              {Streszczenie} [1
+              *{Streszczenie} [1
+
+]
+
+[2
 
 ]
 Rozdzia\l  1.
 
 
-[2
+[3
 
 ]
 Rozdzia\l  2.
 
 
-[3
+[4
 
 ]
 Rozdzia\l  3.
 
 
-[4
+[5
 
 ]
 Rozdzia\l  4.
 
 
-[5
+[6
 
 ]
 Rozdzia\l  5.
 
 
-[6
-
-]
-Rozdzia\l  6.
-
-
 [7
 
 ]
-Rozdzia\l  7.
+Rozdzia\l  6.
 
 
 [8
@@ -787,21 +785,21 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: D239BA715F8B59C77D96B84B5438F994;2990.
+(rerunfilecheck)             Checksum: 08592CFA8E3681690D13CD1467D90287;2740.
  ) 
 Here is how much of TeX's memory you used:
- 33317 strings out of 473201
- 719936 string characters out of 5720299
- 1138593 words of memory out of 5000000
- 56091 multiletter control sequences out of 15000+600000
+ 33313 strings out of 473201
+ 719890 string characters out of 5720299
+ 1137599 words of memory out of 5000000
+ 56089 multiletter control sequences out of 15000+600000
  567777 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,5n,93p,1694b,497s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb>
-Output written on main.pdf (9 pages, 162570 bytes).
+Output written on main.pdf (9 pages, 161928 bytes).
 PDF statistics:
- 199 PDF objects out of 1000 (max. 8388607)
- 168 compressed objects within 2 object streams
- 29 named destinations out of 1000 (max. 500000)
- 165 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 189 PDF objects out of 1000 (max. 8388607)
+ 158 compressed objects within 2 object streams
+ 27 named destinations out of 1000 (max. 500000)
+ 149 words of extra memory for PDF output out of 10000 (max. 10000000)
 
