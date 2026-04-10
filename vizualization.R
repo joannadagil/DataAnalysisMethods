@@ -57,8 +57,289 @@ tabela_miasto <- subset(
 # podgląd tabeli
 View(tabela_miasto)
 
+tabela_miasto$hasBalcony <- ifelse(tabela_miasto$hasBalcony == "yes", 1, 0)
+
+
+par(mfrow=c(1,1))
 hist(tabela_miasto$price,
      main = "Rozkład cen mieszkań",
      xlab = "Cena",
      col = "lightblue",
      border = "white")
+
+# -----------------------------------------------------------------
+## STATYSTYKI OPISOWE
+# średnia, mediana, minimum, maksimum, odchylenie standardowe, skośność
+# ----------------------------------------------------------------
+
+# jeśli trzeba, odkomentuj:
+# install.packages("moments")
+# install.packages("knitr")
+
+library(moments)
+library(knitr)
+
+zmienne_numeryczne <- tabela_miasto[, c("price", "squareMeters", "rooms",
+                                        "poiCount", "centreDistance", "hasBalcony")]
+
+statystyki <- data.frame(
+  Srednia = round(sapply(zmienne_numeryczne, mean, na.rm = TRUE), 2),
+  Mediana = round(sapply(zmienne_numeryczne, median, na.rm = TRUE), 2),
+  Minimum = round(sapply(zmienne_numeryczne, min, na.rm = TRUE), 2),
+  Maksimum = round(sapply(zmienne_numeryczne, max, na.rm = TRUE), 2),
+  OdchylenieStandardowe = round(sapply(zmienne_numeryczne, sd, na.rm = TRUE), 2),
+  Skosnosc = round(sapply(zmienne_numeryczne, skewness, na.rm = TRUE), 2)
+)
+
+print(statystyki)
+
+# druk do tabeli w latexie 
+kable(statystyki, format = "latex", booktabs = TRUE,
+      caption = "Statystyki opisowe zmiennych wykorzystanych w analizie", format.args = list(scientific = FALSE, big.mark = " "))
+
+# -----------------------------------------------------------------
+## PODSTAWOWA WIZUALIZACJA
+# 
+# ----------------------------------------------------------------
+
+
+png("report/podstawowa_wizualizacja_price.png", width = 1000, height = 700, pointsize = 20)
+hist(zmienne_numeryczne$price,
+     main = "",
+     xlab = "Cena",
+     ylab = "Liczebność")
+dev.off()
+
+png("report/podstawowa_wizualizacja_squareMeters.png", width = 1000, height = 700, pointsize = 20)
+hist(zmienne_numeryczne$squareMeters,
+     main = "",
+     xlab = "Powierzchnia [m²]",
+     ylab = "Liczebność")
+dev.off()
+
+png("report/podstawowa_wizualizacja_rooms.png", width = 1000, height = 700, pointsize = 20)
+barplot(table(zmienne_numeryczne$rooms),
+        main = "",
+        xlab = "Liczba pokoi",
+        ylab = "Liczebność")
+dev.off()
+
+png("report/podstawowa_wizualizacja_poiCount.png", width = 1000, height = 700, pointsize = 20)
+hist(zmienne_numeryczne$poiCount,
+     main = "",
+     xlab = "Liczba punktów zainteresowania",
+     ylab = "Liczebność")
+dev.off()
+
+png("report/podstawowa_wizualizacja_centreDistance.png", width = 1000, height = 700, pointsize = 20)
+hist(zmienne_numeryczne$centreDistance,
+     main = "",
+     xlab = "Odległość od centrum",
+     ylab = "Liczebność")
+dev.off()
+
+png("report/podstawowa_wizualizacja_hasBalcony.png", width = 1000, height = 700, pointsize = 20)
+barplot(table(zmienne_numeryczne$hasBalcony),
+        names.arg = c("nie", "tak"),
+        main = "",
+        xlab = "Balkon",
+        ylab = "Liczebność")
+dev.off()
+
+
+## USUNIĘCIE DANYCH Z WYNAJMÓW
+
+tabela_miasto <- tabela_miasto[tabela_miasto$price >= 255000, ]
+
+zmienne_numeryczne <- tabela_miasto[, c("price", "squareMeters", "rooms",
+                                                 "poiCount", "centreDistance", "hasBalcony")]
+
+library(moments)
+library(knitr)
+
+zmienne_numeryczne <- tabela_miasto[, c("price", "squareMeters", "rooms",
+                                        "poiCount", "centreDistance", "hasBalcony")]
+
+statystyki <- data.frame(
+  Srednia = round(sapply(zmienne_numeryczne, mean, na.rm = TRUE), 2),
+  Mediana = round(sapply(zmienne_numeryczne, median, na.rm = TRUE), 2),
+  Minimum = round(sapply(zmienne_numeryczne, min, na.rm = TRUE), 2),
+  Maksimum = round(sapply(zmienne_numeryczne, max, na.rm = TRUE), 2),
+  OdchylenieStandardowe = round(sapply(zmienne_numeryczne, sd, na.rm = TRUE), 2),
+  Skosnosc = round(sapply(zmienne_numeryczne, skewness, na.rm = TRUE), 2)
+)
+
+print(statystyki)
+
+# druk do tabeli w latexie 
+kable(statystyki, format = "latex", booktabs = TRUE,
+      caption = "Statystyki opisowe zmiennych wykorzystanych w analizie", format.args = list(scientific = FALSE, big.mark = " "))
+
+png("report/podstawowa_wizualizacja_price_sama_sprzedaz.png", width = 1000, height = 700, pointsize = 20)
+hist(zmienne_numeryczne$price,
+     main = "",
+     xlab = "Cena",
+     ylab = "Liczebność")
+dev.off()
+
+png("report/podstawowa_wizualizacja_squareMeters_sama_sprzedaz.png", width = 1000, height = 700, pointsize = 20)
+hist(zmienne_numeryczne$squareMeters,
+     main = "",
+     xlab = "Powierzchnia [m²]",
+     ylab = "Liczebność")
+dev.off()
+
+png("report/podstawowa_wizualizacja_rooms_sama_sprzedaz.png", width = 1000, height = 700, pointsize = 20)
+barplot(table(zmienne_numeryczne$rooms),
+        main = "",
+        xlab = "Liczba pokoi",
+        ylab = "Liczebność")
+dev.off()
+
+png("report/podstawowa_wizualizacja_poiCount_sama_sprzedaz.png", width = 1000, height = 700, pointsize = 20)
+hist(zmienne_numeryczne$poiCount,
+     main = "",
+     xlab = "Liczba punktów zainteresowania",
+     ylab = "Liczebność")
+dev.off()
+
+png("report/podstawowa_wizualizacja_centreDistance_sama_sprzedaz.png", width = 1000, height = 700, pointsize = 20)
+hist(zmienne_numeryczne$centreDistance,
+     main = "",
+     xlab = "Odległość od centrum",
+     ylab = "Liczebność")
+dev.off()
+
+png("report/podstawowa_wizualizacja_hasBalcony_sama_sprzedaz.png", width = 1000, height = 700, pointsize = 20)
+barplot(table(zmienne_numeryczne$hasBalcony),
+        names.arg = c("nie", "tak"),
+        main = "",
+        xlab = "Balkon",
+        ylab = "Liczebność")
+dev.off()
+
+# # ---------------------------------------
+# ## STANDARYZACJA
+# # ---------------------------------------
+# png("report/histogram_price_z_uskokiem.png", width = 1920, height = 1080, res = 300, pointsize = 8)
+# 
+# par(mfrow = c(1,1), mar = c(5, 4, 1, 1))
+# 
+# hist(
+#   tabela_miasto$price,
+#   breaks = c(seq(0, 10000, by = 10000),
+#              seq(255000, max(tabela_miasto$price, na.rm = TRUE) + 50000, by = 50000)),
+#   freq = FALSE,
+#   main = "",
+#   xlab = "Cena",
+#   ylab = "Gęstość"
+# )
+# 
+# abline(v = 10000, lty = 2)
+# abline(v = 255000, lty = 2)
+# 
+# dev.off()
+# 
+# 
+# # ----------
+# 
+# library(knitr)
+# 
+# # 6 obserwacji przed uskokiem
+# przed_uskokiem <- tabela_miasto[tabela_miasto$price <= 10000, ]
+# przed_uskokiem <- przed_uskokiem[order(przed_uskokiem$price, decreasing = TRUE), ]
+# przed_uskokiem <- head(przed_uskokiem, 6)
+# 
+# # 6 obserwacji po uskoku
+# po_uskoku <- tabela_miasto[tabela_miasto$price >= 255000, ]
+# po_uskoku <- po_uskoku[order(po_uskoku$price, decreasing = FALSE), ]
+# po_uskoku <- head(po_uskoku, 6)
+# 
+# 
+# # połączenie tabel
+# tabela_uskok <- rbind(przed_uskokiem, po_uskoku)
+# 
+# # wygodniejsza kolejność kolumn
+# tabela_uskok <- tabela_uskok[, c("price", "squareMeters", "rooms",
+#                                  "poiCount", "centreDistance", "hasBalcony")]
+# 
+# print(tabela_uskok)
+# 
+# # eksport do LaTeX
+# kable(
+#   tabela_uskok,
+#   format = "latex",
+#   booktabs = TRUE,
+#   caption = "Przykładowe obserwacje bezpośrednio przed i po uskoku w rozkładzie zmiennej price",
+#   format.args = list(scientific = FALSE, big.mark = " ")
+# )
+# 
+# 
+# # -------------
+# 
+# tabela_miasto$price_m2 <- ifelse(
+#   tabela_miasto$price_original >= 50000,
+#   tabela_miasto$price_original / tabela_miasto$squareMeters,
+#   tabela_miasto$price_original
+# )
+# 
+# hist(tabela_miasto$price_m2)
+# 
+# 
+# head(tabela_miasto[order(tabela_miasto$price_m2), 
+#                    c("price_original", "squareMeters", "price_m2", "rooms", "centreDistance")], 20)
+# 
+# 
+# 
+# 
+# png("report/histogram_price_z_podzialem.png", width = 1920, height = 1080, res = 300, pointsize = 8)
+# 
+# # podział na dwie grupy
+# nie_podzielone <- tabela_miasto$price_original[tabela_miasto$price_original < 50000]
+# podzielone <- tabela_miasto$price_original[tabela_miasto$price_original >= 50000] / 
+#   tabela_miasto$squareMeters[tabela_miasto$price_original >= 50000]
+# 
+# # wspólne przedziały
+# wspolne_breaks <- seq(
+#   floor(min(c(nie_podzielone, podzielone), na.rm = TRUE) / 1000) * 1000,
+#   ceiling(max(c(nie_podzielone, podzielone), na.rm = TRUE) / 1000) * 1000,
+#   by = 1000
+# )
+# 
+# hist(
+#   nie_podzielone,
+#   breaks = wspolne_breaks,
+#   col = rgb(0, 0, 1, 0.4),
+#   border = "white",
+#   main = "",
+#   xlab = "Cena za m²",
+#   ylab = "Liczebność",
+#   xlim = range(wspolne_breaks)
+# )
+# 
+# hist(
+#   podzielone,
+#   breaks = wspolne_breaks,
+#   col = rgb(1, 0, 0, 0.4),
+#   border = "white",
+#   add = TRUE,
+#   xlim = range(wspolne_breaks)
+# )
+# 
+# legend(
+#   "topright",
+#   legend = c("Niepodzielone", "Podzielone"),
+#   fill = c(rgb(0, 0, 1, 0.4), rgb(1, 0, 0, 0.4)),
+#   bty = "n"
+# )
+# dev.off()
+
+# -------------------------------------------------------------------------
+## BRAKI DANYCH
+# -------------------------------------------------------------------------
+
+colSums(is.na(tabela_miasto[, c("price", "squareMeters", "rooms",
+                                "poiCount", "centreDistance", "hasBalcony")]))
+
+
+

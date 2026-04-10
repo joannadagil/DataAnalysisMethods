@@ -81,6 +81,9 @@
 
 \usepackage{authblk}
 
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{subcaption}
 
 \title{\LARGE{Analiza skupień danych dotyczących cen mieszkań}
 \vspace{0.3cm}
@@ -134,21 +137,253 @@ Miastem, które wybraliśmy do analizy jest Kraków, który charakteryzuje się 
 
 \section{Zmienne wybrane do analizy}
 
-(opis i uzasadnienie zmiennych oraz podział na stymulanty/destymulanty) – minimum sześć zmiennych
+W analizie przyjęto podział zmiennych diagnostycznych na symulanty i destymulanty z punktu widzenia atrakcyjności mieszkania. Symulantami nazywa się cechy, których wyższe wartości są oceniane pozytywnie, natomiast destymulantami są cechy, których wzrost wpływa niekorzystnie na ocenę obiektu. Dobór zmiennych miał na celu uwzględnienie zarówno cech fizycznych mieszkania, jak i elementów związanych z jego lokalizacją oraz dostępnością infrastruktury w otoczeniu.
+
+\medskip
+
+Zmienne wybrane do analizy to:
+
+\begin{enumerate}[leftmargin=*, label=\arabic*.]
+    \item[] \textbf{Symulanty}
+
+    \item \texttt{squareMeters} -- powierzchnia mieszkania wyrażona w metrach kwadratowych
+
+    Zmienna ta opisuje wielkość lokalu mieszkalnego i należy do podstawowych cech charakteryzujących nieruchomość. Powierzchnia mieszkania wpływa bezpośrednio na komfort użytkowania, możliwości aranżacyjne oraz funkcjonalność przestrzeni. Większy metraż daje zazwyczaj większą swobodę zagospodarowania wnętrza i lepiej odpowiada na potrzeby gospodarstw domowych o większej liczbie członków. Z tego względu zmienna \texttt{squareMeters} została zakwalifikowana jako symulanta.
+
+    \item \texttt{rooms} -- liczba pokoi w mieszkaniu
+
+    Zmienna określa liczbę wydzielonych pomieszczeń mieszkalnych w lokalu, a więc w pewnym stopniu odzwierciedla jego układ funkcjonalny. Liczba pokoi ma istotne znaczenie z punktu widzenia użyteczności mieszkania, ponieważ wpływa na możliwość oddzielenia poszczególnych stref życia codziennego, takich jak wypoczynek, sen czy praca. Mieszkania z większą liczbą pokoi są często bardziej atrakcyjne dla rodzin oraz osób pracujących zdalnie. Dlatego zmienna \texttt{rooms} została uznana za symulantę.
+
+    \item \texttt{poiCount} -- liczba punktów zainteresowania w promieniu 500 metrów od mieszkania
+
+    Zmienna ta opisuje intensywność i dostępność infrastruktury w bezpośrednim otoczeniu nieruchomości. Obejmuje ona liczbę punktów zainteresowania znajdujących się w promieniu 500 metrów od mieszkania, takich jak sklepy, punkty usługowe, restauracje, placówki edukacyjne, przystanki komunikacji miejskiej czy inne obiekty użyteczności codziennej. Wyższa wartość tej zmiennej wskazuje na lepsze wyposażenie okolicy w usługi i udogodnienia, co zwiększa wygodę życia mieszkańców oraz atrakcyjność lokalizacji. W związku z tym \texttt{poiCount} została zakwalifikowana jako symulanta.
+
+    \item \texttt{hasBalcony} -- informacja o obecności balkonu w mieszkaniu
+
+    Zmienna ta ma charakter jakościowy i informuje, czy mieszkanie posiada balkon. Balkon stanowi dodatkową przestrzeń użytkową, która może pełnić funkcję rekreacyjną, wypoczynkową lub praktyczną. Obecność balkonu jest często postrzegana jako cecha podnosząca standard mieszkania, szczególnie w zabudowie wielorodzinnej. Na potrzeby analizy zmienna ta może zostać zakodowana binarnie, na przykład jako 1 dla odpowiedzi \texttt{yes} oraz 0 dla odpowiedzi \texttt{no}. Po takim przekształceniu wyższa wartość oznacza cechę bardziej pożądaną, dlatego \texttt{hasBalcony} potraktowano jako symulantę.
+
+    \item[] \textbf{Destymulanty}
+
+    \item \texttt{price} -- cena mieszkania
+
+    Zmienna określa całkowitą cenę oferowanej nieruchomości i stanowi jedną z najważniejszych cech z punktu widzenia nabywcy. Cena wpływa bezpośrednio na dostępność ekonomiczną mieszkania oraz możliwość jego zakupu przez potencjalnych klientów. Przy porównywaniu mieszkań wyższa cena oznacza zwykle mniejszą dostępność finansową, nawet jeśli może częściowo wynikać z lepszej lokalizacji lub wyższego standardu. Z tego względu, w kontekście oceny atrakcyjności mieszkania z perspektywy ekonomicznej, zmienna \texttt{price} została uznana za destymulantę.
+
+    \item \texttt{centreDistance} -- odległość mieszkania od centrum miasta w kilometrach
+
+    Zmienna ta opisuje położenie nieruchomości względem centralnej części miasta. Lokalizacja jest jednym z kluczowych czynników wpływających na wartość i atrakcyjność mieszkania, ponieważ determinuje dostęp do miejsc pracy, usług, transportu publicznego, oferty handlowej i kulturalnej. W warunkach dużego miasta mniejsza odległość od centrum jest zazwyczaj postrzegana jako cecha korzystna, gdyż wiąże się z lepszą dostępnością najważniejszych funkcji miejskich. Wobec tego wzrost wartości zmiennej \texttt{centreDistance} obniża atrakcyjność nieruchomości, dlatego została ona zakwalifikowana jako destymulanta.
+
+\end{enumerate}
 
 \section{Wstępna analiza danych}
 
-\subsection{statystyki opisowe}
+\subsection{Statystyki opisowe i podstawowa wizualizacja}
 
-(przynajmniej: średnia, mediana, minimum, maksimum, odchylenie standardowe, skośność)
+% (przynajmniej: średnia, mediana, minimum, maksimum, odchylenie standardowe, skośność)
 
-\subsection{podstawowa wizualizacja}
+\begin{table}[H]
 
-np. boxplot, histogramy
+\caption{Statystyki opisowe zmiennych wykorzystanych w analizie}
+\centering
+\begin{tabular}[t]{lrrrrrr}
+\toprule
+  & Srednia & Mediana & Minimum & Maksimum & OdchylenieStandardowe & Skosnosc\\
+\midrule
+price & 626 200.24 & 660 000.00 & 1 700.00 & 3 000 000.00 & 526 704.50 & 0.75\\
+squareMeters & 55.35 & 50.49 & 25.00 & 150.00 & 21.38 & 1.48\\
+rooms & 2.53 & 2.00 & 1.00 & 6.00 & 0.92 & 0.99\\
+poiCount & 24.35 & 14.00 & 0.00 & 212.00 & 33.62 & 2.99\\
+centreDistance & 3.82 & 3.71 & 0.14 & 9.99 & 2.17 & 0.38\\
+hasBalcony & 0.63 & 1.00 & 0.00 & 1.00 & 0.48 & -0.55\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%np. boxplot, histogramy
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.99\linewidth]{Podstawowa_wizualizacja.png}
+%     \caption{Wizualizacje}
+% \end{figure}
+
+
+
+\begin{figure}[H]
+    \centering
+
+    \begin{subfigure}[t]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{podstawowa_wizualizacja_centreDistance.png}
+        \caption{Wizualizacja odległości mieszkań od centrum miasta}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{podstawowa_wizualizacja_hasBalcony.png}
+        \caption{Wizualizacja ilości mieszkań z balkonem i bez balkonu}
+    \end{subfigure}
+
+    \vspace{0.5cm}
+
+    \begin{subfigure}[t]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{podstawowa_wizualizacja_poiCount.png}
+        \caption{Wizualizacja ilości punktów zainteresowania w promieniu 500 metrów od mieszkań}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{podstawowa_wizualizacja_price.png}
+        \caption{Wizualizacja cen mieszkań}
+    \end{subfigure}
+
+    \vspace{0.5cm}
+
+    \begin{subfigure}[t]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{podstawowa_wizualizacja_rooms.png}
+        \caption{Wizualizacja ilości pokoi w mieszkaniach}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{podstawowa_wizualizacja_squareMeters.png}
+        \caption{Wizualizacja powierzchni mieszkań}
+    \end{subfigure}
+
+    \caption{Podstawowa wizualizacja zmiennych wykorzystanych w analizie}
+\end{figure}
+
+Statystyki opisowe oraz podstawowa wizualizacja zmiennych wykorzystanych w analizie umożliwiają ocenę struktury zbioru danych, rozkładu poszczególnych cech, stopnia ich zróżnicowania oraz ewentualnych nieregularności występujących w danych.
+
+Rozkład zmiennej \texttt{price} oraz jej podstawowe charakterystyki statystyczne wskazują na obecność obserwacji należących do różnych segmentów rynku nieruchomości. Jest to związane z tym, że w zbiorze danych występują zarówno oferty mieszkań przeznaczonych na sprzedaż, jak i oferty mieszkań oferowanych na wynajem. Ze względu na brak bezpośredniej porównywalności cen najmu i cen sprzedaży, zakres dalszej analizy ograniczmy do ofert sprzedaży mieszkań.
+
+Dokonujemy ponownych statystyk opisowych oraz wizualizacji, uwzględniając tylko oferty sprzedaży mieszkań. Dzięki temu uzyskamy bardziej spójny i porównywalny zbiór danych, który pozwoli na rzetelną analizę skupień oraz identyfikację grup podobnych ofert w kontekście cen mieszkań przeznaczonych na sprzedaż.
+
+\begin{table}[H]
+
+\caption{Statystyki opisowe zmiennych wykorzystanych w analizie po usunięciu ofert wynajmu mieszkań}
+\centering
+\begin{tabular}[t]{lrrrrrr}
+\toprule
+  & Srednia & Mediana & Minimum & Maksimum & OdchylenieStandardowe & Skosnosc\\
+\midrule
+price & 897 888.77 & 795 000.00 & 255 000.00 & 3 000 000.00 & 394 185.67 & 1.89\\
+squareMeters & 57.17 & 52.00 & 25.00 & 150.00 & 22.12 & 1.43\\
+rooms & 2.63 & 3.00 & 1.00 & 6.00 & 0.95 & 0.91\\
+poiCount & 23.94 & 14.00 & 0.00 & 212.00 & 33.80 & 3.07\\
+centreDistance & 4.01 & 3.95 & 0.15 & 9.99 & 2.21 & 0.28\\
+hasBalcony & 0.62 & 1.00 & 0.00 & 1.00 & 0.49 & -0.49\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+
+    \begin{subfigure}[t]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{podstawowa_wizualizacja_centreDistance_sama_sprzedaz.png}
+        \caption{Wizualizacja odległości mieszkań od centrum miasta}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{podstawowa_wizualizacja_hasBalcony_sama_sprzedaz.png}
+        \caption{Wizualizacja ilości mieszkań z balkonem i bez balkonu}
+    \end{subfigure}
+
+    \vspace{0.5cm}
+
+    \begin{subfigure}[t]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{podstawowa_wizualizacja_poiCount_sama_sprzedaz.png}
+        \caption{Wizualizacja ilości punktów zainteresowania w promieniu 500 metrów od mieszkań}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{podstawowa_wizualizacja_price_sama_sprzedaz.png}
+        \caption{Wizualizacja cen mieszkań}
+    \end{subfigure}
+
+    \vspace{0.5cm}
+
+    \begin{subfigure}[t]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{podstawowa_wizualizacja_rooms_sama_sprzedaz.png}
+        \caption{Wizualizacja ilości pokoi w mieszkaniach}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{podstawowa_wizualizacja_squareMeters_sama_sprzedaz.png}
+        \caption{Wizualizacja powierzchni mieszkań}
+    \end{subfigure}
+
+    \caption{Podstawowa wizualizacja zmiennych wykorzystanych w analizie po usunięciu ofert wynajmu mieszkań.}
+\end{figure}
+
+
+
+% \subsection{Standaryzacja danych}
+
+
+% W toku wstępnej analizy zbioru danych zauważono, że zmienna \texttt{price} nie była zapisana w jednolity sposób dla wszystkich obserwacji. Część ofert zawierała cenę całkowitą mieszkania, natomiast w przypadku części ogłoszeń cena była wyrażona jako cena za metr kwadratowy. Taka niejednorodność zapisu prowadzi do braku porównywalności obserwacji i może istotnie zaburzać wyniki dalszej analizy statystycznej oraz analizy skupień.
+
+% Przesłanką wskazującą na występowanie dwóch różnych sposobów zapisu ceny był wyraźny uskok w rozkładzie wartości zmiennej \texttt{price}, widoczny pomiędzy poziomem około 10\,000 a 255\,000. Wartości z dolnego zakresu odpowiadają realistycznym cenom za metr kwadratowy mieszkania, natomiast wartości wyraźnie wyższe interpretowano jako ceny całkowite nieruchomości. Taki rozkład sugerował, że w zbiorze jednocześnie występują dwie różne jednostki opisu tej samej cechy.
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.99\linewidth]{histogram_price_z_uskokiem.png}
+%     \caption{Dokładna wizualizacja rozkładu zmiennej \texttt{price} z zaznaczeniem uskoku wskazującego na niejednorodność zapisu cen.}
+% \end{figure}
+
+
+% \begin{table}[H]
+% \centering
+% \begin{tabular}[t]{lrrrrrr}
+% \toprule
+%   & price & squareMeters & rooms & poiCount & centreDistance & hasBalcony\\
+% \midrule
+% \multicolumn{7}{c}{\dots}\\
+% 213569 & 10 000 & 108.00 & 4 & 19 & 1.64 & 0\\
+% 213620 & 10 000 & 108.00 & 4 & 19 & 1.78 & 1\\
+% 214046 & 10 000 & 107.74 & 5 & 21 & 1.24 & 0\\
+% 214181 & 10 000 & 110.00 & 5 & 19 & 1.28 & 1\\
+% 214699 & 10 000 & 100.00 & 4 & 66 & 1.40 & 1\\
+% 214804 & 10 000 & 135.00 & 4 & 72 & 1.04 & 1\\
+% %\addlinespace
+% 3336 & 255 000 & 37.20 & 2 & 6 & 4.13 & 0\\
+% 37236 & 255 129 & 32.94 & 2 & 24 & 7.27 & 0\\
+% 3782 & 266 000 & 35.50 & 2 & 9 & 4.06 & 0\\
+% 20941 & 280 000 & 29.00 & 2 & 18 & 6.71 & 0\\
+% 55548 & 282 000 & 41.00 & 2 & 3 & 5.44 & 1\\
+% \multicolumn{7}{c}{\dots}\\
+% \bottomrule
+% \end{tabular}
+% \caption{Obserwacje bezpośrednio przed i po uskoku w rozkładzie zmiennej \texttt{price}, ilustrujące różnicę w zapisie cen mieszkań.}
+% \end{table}
+
+% W celu ujednolicenia danych zdecydowano się na sprowadzenie wszystkich obserwacji do wspólnej postaci, to znaczy do \textbf{ceny za metr kwadratowy}. Dla obserwacji, w których cena była zapisana jako cena całkowita mieszkania, dokonano przeliczenia przez podzielenie wartości zmiennej \texttt{price} przez zmienną \texttt{squareMeters}. Obserwacje, których wartości wskazywały na to, że cena była już wyrażona w przeliczeniu na metr kwadratowy, pozostawiono bez zmian.
+
+% Przyjęte podejście pozwoliło na usunięcie niejednorodności jednostek pomiaru i zapewniło porównywalność danych w dalszych etapach analizy. Jest to szczególnie istotne w analizie skupień, w której odległości pomiędzy obiektami są wyznaczane bezpośrednio na podstawie wartości zmiennych. Pozostawienie zmiennej \texttt{price} w niejednolitym formacie mogłoby prowadzić do sztucznego różnicowania mieszkań wyłącznie z powodu odmiennego sposobu zapisu ceny, a nie rzeczywistych różnic pomiędzy nieruchomościami.
+
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.99\linewidth]{histogram_price_z_podzialem.png}
+%     \caption{}
+% \end{figure}
+
 
 \subsection{braki danych}
 
-czy występują i jak je obsłużono
+% czy występują i jak je obsłużono
+
+Ocena kompletności danych stanowi istotny element wstępnej analizy zbioru, ponieważ obecność brakujących wartości może wpływać na wiarygodność wyników oraz ograniczać możliwość zastosowania wybranych metod statystycznych. Z tego względu sprawdzeniu poddano wszystkie zmienne uwzględnione w dalszej analizie, tj. \texttt{price}, \texttt{squareMeters}, \texttt{rooms}, \texttt{poiCount}, \texttt{centreDistance} oraz \texttt{hasBalcony}.
+
+W analizowanych danych nie występują braki wartości dla żadnej z uwzględnionych zmiennych. Każda obserwacja zawiera zatem pełny zestaw informacji wymaganych w dalszych etapach badania. Dzięki temu dalsza analiza nie wymaga ani uzupełniania danych, ani ograniczania zbioru do obserwacji kompletnych.
 
 \subsection{obserwacje odstające}
 
