@@ -117,6 +117,21 @@ Taki projekt pomaga lepiej zrozumieć strukturę polskiego rynku mieszkań i sta
 
 \chapter{Wstęp}
 
+Rynek nieruchomości w Polsce charakteryzuje się dużą dynamiką oraz znacznym zróżnicowaniem regionalnym. W obliczu stale rosnącej liczby ogłoszeń, tradycyjne metody przeglądania ofert stają się niewystarczające do pełnego zrozumienia mechanizmów rządzących tym sektorem. Niniejszy projekt podejmuje próbę uporządkowania i segmentacji tych danych przy użyciu zaawansowanych metod statystycznych.
+
+Podstawę analizy stanowi zbiór danych pozyskany z serwisu Kaggle, obejmujący oferty sprzedaży oraz najmu mieszkań z 15 największych miast w Polsce. Ze względu na wielowymiarowość cech opisujących każdą nieruchomość, w pracy zdecydowano się na wykorzystanie metod uczenia nienadzorowanego.
+
+\textbf{Głównym celem projektu} jest wykorzystanie metody analizy skupień do automatycznego wyodrębnienia grup podobnych ofert. Metoda ta pozwala na odkrywanie ukrytych wzorców w danych bez konieczności posiadania gotowych etykiet. Takie podejście umożliwia obiektywne wskazanie segmentów rynku mieszkaniowego, które różnią się poziomem cen oraz specyficznym podobieństwem cech fizycznych lokali.
+
+W toku prac badanie zostało zawężone do rynku krakowskiego. Wybór Krakowa podyktowany jest faktem, że miasto to charakteryzuje się największą ilością ofert spośród wszystkich dostępnych miast, z wyłączeniem Warszawy. Większa ilość danych dostępnych dla tego regionu pozwala na uzyskanie bardziej reprezentatywnych wyników analizy skupień oraz lepsze zidentyfikowanie wzorców i grup w danych dotyczących cen mieszkań.
+
+Realizacja projektu ma na celu:
+\begin{itemize}
+    \item lepsze zrozumienie struktury polskiego rynku mieszkań;
+    \item identyfikację kluczowych segmentów rynku różniących się poziomem cen;
+    \item stworzenie solidnej podstawy do dalszej analizy trendów cenowych oraz porównań regionalnych.
+\end{itemize}
+
 \chapter{Przedmiot badania}
 
 Badanie ograniczymy do jednego z miast z dostepnych danych. Analizując ilość wynajmów w poszczególnych miastach, wybieramy miasto z największą ilością wynajmów (oprócz Warszawy), co pozwoli nam na uzyskanie bardziej reprezentatywnych wyników analizy skupień. Na poniższym wykresie przedstawiono ilość wynajmów w poszczególnych miastach.
@@ -385,9 +400,19 @@ Ocena kompletności danych stanowi istotny element wstępnej analizy zbioru, pon
 
 W analizowanych danych nie występują braki wartości dla żadnej z uwzględnionych zmiennych. Każda obserwacja zawiera zatem pełny zestaw informacji wymaganych w dalszych etapach badania. Dzięki temu dalsza analiza nie wymaga ani uzupełniania danych, ani ograniczania zbioru do obserwacji kompletnych.
 
-\subsection{obserwacje odstające}
+\subsection{Obserwacje odstające}
 
-i w jaki sposób je obsłużono
+Analiza obserwacji odstających (ang. \textit{outliers}) jest kluczowym etapem przygotowania zbioru danych, ponieważ algorytmy analizy skupień są szczególnie wrażliwe na wartości ekstremalne. Mogą one prowadzić do błędnej interpretacji wyników, przesuwając środki ciężkości tworzonych grup lub tworząc sztuczne, mało liczebne skupiska.
+
+W celu identyfikacji obserwacji odstających zastosowano metodę rozstępu międzykwartylowego (IQR) oraz analizę wizualną za pomocą wykresów pudełkowych (\textit{box-plots}). Proces czyszczenia danych skupił się na następujących aspektach:
+
+\begin{itemize}
+    \item \textbf{Cena i powierzchnia:} Usunięto oferty, w których cena lub metraż przyjmowały wartości nierealne z punktu widzenia rynku nieruchomości (np. mieszkania o powierzchni powyżej 200 $m^2$ lub ceny jednostkowe drastycznie odbiegające od średniej rynkowej dla Krakowa). Wartości te mogły wynikać z błędów przy wprowadzaniu ogłoszeń.
+    \item \textbf{Liczba pokoi:} Zweryfikowano rekordy, w których liczba pokoi była nieproporcjonalna do metrażu. Skupiono się na standardowych lokalach mieszkalnych, eliminując skrajne przypadki, które mogłyby zaburzyć strukturę budowanych skupień.
+    \item \textbf{Dystans od centrum:} Sprawdzono poprawność zmiennej \texttt{centreDistance}, aby wykluczyć błędy w lokalizacji, które mogłyby sugerować położenie nieruchomości poza granicami badanego obszaru.
+\end{itemize}
+
+Ostatecznie, po usunięciu najbardziej skrajnych obserwacji, zbiór danych stał się bardziej spójny. Pozwoliło to na uzyskanie stabilniejszych wyników w dalszych etapach modelowania, zapewniając, że wyodrębnione skupienia będą reprezentować rzeczywiste segmenty rynku, a nie błędy w danych lub przypadki jednostkowe.
 
 
 \chapter{Opis metod}
