@@ -1,4 +1,4 @@
-\documentclass{report}
+  \documentclass{report}
 
 % Language setting
 % Replace `english' with e.g. `spanish' to change the document language
@@ -109,23 +109,38 @@ Adam Włodarski (230983)
 \chapter*{Streszczenie}
 \addcontentsline{toc}{chapter}{Streszczenie}
 
-Projekt polega na analizie zbioru danych z Kaggle zawierającego oferty sprzedaży i najmu mieszkań z 15 największych miast w Polsce.
-Celem pracy jest wykorzystanie metody cluster do automatycznego wyodrębnienia grup podobnych ofert, ponieważ clustering należy do metod uczenia nienadzorowanego i służy do odkrywania ukrytych wzorców w danych bez gotowych etykiet.
-Dzięki temu można wskazać segmenty rynku mieszkaniowego różniące się poziomem cen oraz podobieństwem ofert między miastami.
-Taki projekt pomaga lepiej zrozumieć strukturę polskiego rynku mieszkań i stanowi dobrą podstawę do dalszej analizy trendów cenowych oraz porównań regionalnych.
+Celem pracy była identyfikacja jednorodnych grup ofert sprzedaży mieszkań w Krakowie z wykorzystaniem metod analizy skupień. 
+Materiał badawczy stanowiły dane pochodzące ze zbioru Kaggle obejmującego ogłoszenia mieszkaniowe z 15 największych miast Polski, przy czym analizę zawężono do rynku krakowskiego oraz wyłącznie do ofert sprzedaży. 
+W badaniu uwzględniono cechy opisujące mieszkania i ich otoczenie, takie jak cena, powierzchnia, liczba pokoi, liczba punktów zainteresowania w okolicy, odległość od centrum oraz informacja o posiadaniu balkonu. 
+Po wstępnym przygotowaniu danych, obejmującym ocenę kompletności danych, usunięcie obserwacji odstających oraz standaryzację zmiennych, zastosowano algorytm K-means oraz hierarchiczną metodę Warda. 
+Uzyskane wyniki wskazują na istnienie trzech interpretowalnych segmentów rynku mieszkaniowego, różniących się poziomem cen, wielkością lokali oraz położeniem względem centrum miasta. 
+Zbieżność wyników obu metod potwierdza wewnętrzne zróżnicowanie krakowskiego rynku mieszkań.
 
 \vspace{0.5cm}
-\noindent\textbf{Słowa kluczowe:} analiza skupień, klastry, ceny mieszkań, K-means, metoda hierarchiczna
+\noindent\textbf{Słowa kluczowe:} analiza skupień, klastry, ceny mieszkań, K-means, metoda Warda
 
 \chapter{Wstęp}
 
-Rynek nieruchomości w Polsce charakteryzuje się dużą dynamiką oraz znacznym zróżnicowaniem regionalnym. W obliczu stale rosnącej liczby ogłoszeń, tradycyjne metody przeglądania ofert stają się niewystarczające do pełnego zrozumienia mechanizmów rządzących tym sektorem. Niniejszy projekt podejmuje próbę uporządkowania i segmentacji tych danych przy użyciu zaawansowanych metod statystycznych.
+Rynek mieszkaniowy należy do obszarów charakteryzujących się dużym zróżnicowaniem ofert pod względem ceny, wielkości lokalu, układu funkcjonalnego oraz położenia. 
+W praktyce oznacza to, że mieszkania dostępne na tym samym rynku lokalnym mogą znacząco różnić się między sobą, tworząc naturalne segmenty odpowiadające odmiennym potrzebom nabywców oraz różnym poziomom dostępności cenowej. 
+Z tego względu analiza rynku nieruchomości wymaga narzędzi pozwalających uchwycić nie tylko pojedyncze zależności między zmiennymi, lecz także wewnętrzną strukturę całego zbioru danych.
 
-Podstawę analizy stanowi zbiór danych pozyskany z serwisu Kaggle, obejmujący oferty sprzedaży oraz najmu mieszkań z 15 największych miast w Polsce. Ze względu na wielowymiarowość cech opisujących każdą nieruchomość, w pracy zdecydowano się na wykorzystanie metod uczenia nienadzorowanego.
+Jednym z podejść umożliwiających takie badanie jest analiza skupień, zaliczana do metod uczenia nienadzorowanego. 
+Jej celem jest grupowanie obiektów podobnych do siebie pod względem wybranych cech, bez konieczności wcześniejszego przypisywania im etykiet. 
+W kontekście rynku mieszkaniowego pozwala to na identyfikację segmentów ofert o zbliżonych parametrach, a następnie na ich interpretację ekonomiczną.
 
-\textbf{Głównym celem projektu} jest wykorzystanie metody analizy skupień do automatycznego wyodrębnienia grup podobnych ofert. Metoda ta pozwala na odkrywanie ukrytych wzorców w danych bez konieczności posiadania gotowych etykiet. Takie podejście umożliwia obiektywne wskazanie segmentów rynku mieszkaniowego, które różnią się poziomem cen oraz specyficznym podobieństwem cech fizycznych lokali.
+Podstawę analizy stanowi zbiór danych pozyskany z serwisu Kaggle, obejmujący oferty sprzedaży oraz najmu mieszkań z 15 największych miast w Polsce.
+W toku prac badanie zawężono do ofert sprzedaży mieszkań w Krakowie. 
+Wybór tego miasta wynikał z dużej liczby dostępnych obserwacji, co umożliwia bardziej wiarygodne zastosowanie metod grupowania oraz lepsze uchwycenie zróżnicowania badanego rynku. 
+Ograniczenie analizy do ofert sprzedaży pozwoliło dodatkowo zachować jednorodność ekonomiczną danych i uniknąć mieszania informacji o cenach sprzedaży z cenami najmu.
 
-W toku prac badanie zostało zawężone do rynku krakowskiego. Wybór Krakowa podyktowany jest faktem, że miasto to charakteryzuje się największą ilością ofert spośród wszystkich dostępnych miast, z wyłączeniem Warszawy. Większa ilość danych dostępnych dla tego regionu pozwala na uzyskanie bardziej reprezentatywnych wyników analizy skupień oraz lepsze zidentyfikowanie wzorców i grup w danych dotyczących cen mieszkań.
+\textbf{Głównym celem projektu} jest identyfikacja jednorodnych grup ofert sprzedaży mieszkań w Krakowie na podstawie cech opisujących lokale oraz ich otoczenie. 
+W analizie wykorzystano zmienne odnoszące się do ceny mieszkania, powierzchni, liczby pokoi, dostępności punktów zainteresowania, odległości od centrum miasta oraz informacji o posiadaniu balkonu. 
+Do realizacji celu zastosowano dwie metody analizy skupień: algorytm K-means oraz hierarchiczną metodę Warda.
+
+Przeprowadzone badanie ma charakter eksploracyjny. 
+Jego celem nie jest prognozowanie cen ani ocena pojedynczych nieruchomości, lecz rozpoznanie struktury badanego rynku i wskazanie, czy wśród ofert sprzedaży mieszkań w Krakowie można wyróżnić wyraźne, interpretowalne segmenty. 
+Wyniki takiej analizy mogą pomóc w lepszym zrozumieniu wewnętrznego zróżnicowania rynku mieszkaniowego oraz stanowić punkt wyjścia do dalszych badań.
 
 Realizacja projektu ma na celu:
 \begin{itemize}
@@ -162,7 +177,7 @@ Zakres badania został zawężony do ofert dotyczących miasta Krakowa. Wybór t
 
 W badaniu uwzględniono zmienne opisujące zarówno cechy fizyczne mieszkań, jak i ich otoczenie, tj. cenę, powierzchnię, liczbę pokoi, liczbę punktów zainteresowania w promieniu 500 metrów, odległość od centrum miasta oraz informację o posiadaniu balkonu. Przed właściwą analizą przeprowadzono wstępne przygotowanie danych obejmujące ograniczenie zbioru do ofert sprzedaży, ocenę kompletności danych oraz usunięcie obserwacji odstających.
 
-W części analitycznej zastosowano dwie metody grupowania: algorytm K-średnich oraz hierarchiczną analizę skupień metodą Warda. Pozwoliło to nie tylko na wyznaczenie segmentów rynku, lecz także na porównanie wyników uzyskanych różnymi podejściami i ocenę ich spójności.
+W części analitycznej zastosowano dwie metody grupowania: algorytm K-means oraz hierarchiczną analizę skupień metodą Warda. Pozwoliło to nie tylko na wyznaczenie segmentów rynku, lecz także na porównanie wyników uzyskanych różnymi podejściami i ocenę ich spójności.
 
 Realizacja celu badania będzie oceniana poprzez odpowiedź na trzy pytania: czy w danych można wskazać wyraźne skupienia ofert mieszkań, czy wyodrębnione klastry dają się sensownie zinterpretować ekonomicznie oraz czy wyniki uzyskane różnymi metodami analizy skupień są ze sobą zgodne. Tak sformułowany cel pozwala w końcowym podsumowaniu jednoznacznie ocenić, w jakim stopniu projekt doprowadził do poznania struktury badanego fragmentu rynku nieruchomości.
 
@@ -551,7 +566,7 @@ hasBalcony & 0.64 & 1.00 & 0.00 & 1.00 & 0.48 & -0.60\\
 \end{figure}
 \chapter{Opis metod}
 
-W niniejszym rozdziale przedstawiono dwie metody analizy skupień zastosowane w ramach projektu, tj. algorytm k-średnich (K-means) oraz hierarchiczną analizę skupień metodą aglomeracyjną. Metody te należą do najczęściej stosowanych technik uczenia nienadzorowanego i umożliwiają grupowanie obiektów na podstawie ich podobieństwa mierzonego w przestrzeni wielowymiarowej.
+W niniejszym rozdziale przedstawiono dwie metody analizy skupień zastosowane w ramach projektu, tj. algorytm K-średnich (K-means) oraz hierarchiczną analizę skupień metodą aglomeracyjną. Metody te należą do najczęściej stosowanych technik uczenia nienadzorowanego i umożliwiają grupowanie obiektów na podstawie ich podobieństwa mierzonego w przestrzeni wielowymiarowej.
 
 \section{Algorytm K-means}
 
@@ -673,7 +688,7 @@ Prace te stanowią podstawę teoretyczną dla zastosowanych w niniejszym projekc
 
 \chapter{Wyniki}
 
-W niniejszym rozdziale zaprezentowano wyniki przeprowadzonej analizy skupień dla rynku nieruchomości w Krakowie. Proces badawczy obejmował wyznaczenie optymalnej liczby klastrów, podział zbioru danych algorytmem K-średnich oraz weryfikację struktury danych metodą hierarchiczną.
+W niniejszym rozdziale zaprezentowano wyniki przeprowadzonej analizy skupień dla rynku nieruchomości w Krakowie. Proces badawczy obejmował wyznaczenie optymalnej liczby klastrów, podział zbioru danych algorytmem K-means oraz weryfikację struktury danych metodą hierarchiczną.
 
 \section{Wybór optymalnej liczby skupień}
 
@@ -690,7 +705,7 @@ Na powyższym wykresie punkt zagięcia krzywej (tzw. łokieć) jest wyraźnie wi
 
 \section{Charakterystyka klastrów (K-means)}
 
-Po zastosowaniu algorytmu K-średnich dla $k=3$ na ustandaryzowanych danych, otrzymano podział zbioru na trzy grupy o zróżnicowanej charakterystyce. W tabeli \ref{tab:klastry} zestawiono średnie wartości zmiennych dla każdego z segmentów (w oryginalnych jednostkach).
+Po zastosowaniu algorytmu K-means dla $k=3$ na ustandaryzowanych danych, otrzymano podział zbioru na trzy grupy o zróżnicowanej charakterystyce. W tabeli \ref{tab:klastry} zestawiono średnie wartości zmiennych dla każdego z segmentów (w oryginalnych jednostkach).
 
 \begin{table}[H]
 \caption{Średnie wartości zmiennych w wyodrębnionych skupieniach}
@@ -724,7 +739,7 @@ Na podstawie analizy statystycznej centrów skupień można zdefiniować następ
 
 \section{Weryfikacja metodą hierarchiczną}
 
-W celu potwierdzenia istnienia naturalnych skupisk w danych, przeprowadzono klastrowanie hierarchiczne metodą Warda na reprezentatywnej próbie obserwacji. Dendrogram (Rys. \ref{fig:dendrogram}) potwierdził zasadność podziału na trzy główne gałęzie, co jest spójne z wynikami metody K-średnich.
+W celu potwierdzenia istnienia naturalnych skupisk w danych, przeprowadzono klastrowanie hierarchiczne metodą Warda na reprezentatywnej próbie obserwacji. Dendrogram (Rys. \ref{fig:dendrogram}) potwierdził zasadność podziału na trzy główne gałęzie, co jest spójne z wynikami metody K-means.
 
 \begin{figure}[H]
     \centering
@@ -735,7 +750,7 @@ W celu potwierdzenia istnienia naturalnych skupisk w danych, przeprowadzono klas
 
 \section{Porównanie uzyskanych wyników i ocena jakości skupień}
 
-Dokonano porównania wyników uzyskanych dwiema niezależnymi metodami: algorytmem K-średnich oraz metodą hierarchiczną Warda. 
+Dokonano porównania wyników uzyskanych dwiema niezależnymi metodami: algorytmem K-means oraz metodą hierarchiczną Warda. 
 
 \begin{itemize}
     \item \textbf{Zbieżność podziału:} Obie zastosowane metody wskazały na istnienie trzech dominujących skupień w badanym zbiorze danych. Metoda łokcia (Rys. \ref{fig:elbow}) oraz struktura dendrogramu (Rys. \ref{fig:dendrogram}) wykazują wysoką spójność, co świadczy o stabilności wyodrębnionych segmentów rynku.
@@ -754,11 +769,11 @@ Celem niniejszej pracy była identyfikacja jednorodnych grup ofert sprzedaży mi
 
 \section{Ocena realizacji celu}
 
-\textbf{Po pierwsze, w danych można wskazać wyraźne skupienia ofert mieszkań.} Zastosowanie metody łokcia w analizie algorytmu K-średnich wskazało, że optymalnym rozwiązaniem jest podział zbioru na trzy klastry. Wynik ten został dodatkowo potwierdzony przez analizę hierarchiczną metodą Warda, której dendrogram również sugerował istnienie trzech głównych grup. Oznacza to, że badany zbiór nie ma charakteru przypadkowego ani jednorodnego, lecz wykazuje wewnętrzną strukturę, którą można opisać za pomocą metod grupowania.
+\textbf{Po pierwsze, w danych można wskazać wyraźne skupienia ofert mieszkań.} Zastosowanie metody łokcia w analizie algorytmu K-means wskazało, że optymalnym rozwiązaniem jest podział zbioru na trzy klastry. Wynik ten został dodatkowo potwierdzony przez analizę hierarchiczną metodą Warda, której dendrogram również sugerował istnienie trzech głównych grup. Oznacza to, że badany zbiór nie ma charakteru przypadkowego ani jednorodnego, lecz wykazuje wewnętrzną strukturę, którą można opisać za pomocą metod grupowania.
 
 \textbf{Po drugie, wyodrębnione klastry dają się sensownie zinterpretować ekonomicznie.} Otrzymane skupienia różniły się między sobą przede wszystkim poziomem cen, powierzchnią mieszkań, liczbą pokoi oraz położeniem względem centrum miasta. Pozwala to traktować je jako odmienne segmenty rynku mieszkaniowego, obejmujące oferty o różnym standardzie, funkcji i dostępności cenowej. Tym samym analiza skupień nie doprowadziła jedynie do technicznego podziału danych, lecz umożliwiła także sformułowanie wniosków dotyczących struktury rynku nieruchomości w Krakowie.
 
-\textbf{Po trzecie, wyniki uzyskane różnymi metodami analizy skupień są ze sobą zgodne.} Zarówno algorytm K-średnich, jak i hierarchiczna analiza skupień prowadzą do wniosku, że najbardziej uzasadniony jest podział na trzy główne segmenty rynku. Zbieżność wyników uzyskanych niezależnymi metodami zwiększa wiarygodność przeprowadzonej analizy i wskazuje, że otrzymany podział nie jest efektem przypadku ani specyfiki pojedynczego algorytmu.
+\textbf{Po trzecie, wyniki uzyskane różnymi metodami analizy skupień są ze sobą zgodne.} Zarówno algorytm K-means, jak i hierarchiczna analiza skupień prowadzą do wniosku, że najbardziej uzasadniony jest podział na trzy główne segmenty rynku. Zbieżność wyników uzyskanych niezależnymi metodami zwiększa wiarygodność przeprowadzonej analizy i wskazuje, że otrzymany podział nie jest efektem przypadku ani specyfiki pojedynczego algorytmu.
 
 \section{Ocena uzyskanych wyników w kontekście literatury przedmiotu}
 
