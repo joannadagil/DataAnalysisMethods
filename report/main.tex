@@ -512,13 +512,121 @@ hasBalcony & 0.64 & 1.00 & 0.00 & 1.00 & 0.48 & -0.60\\
 \end{minipage}
 
 \end{figure}
-
 \chapter{Opis metod}
 
-\section{wzory wraz z opisami oznaczeń}
+W niniejszym rozdziale przedstawiono dwie metody analizy skupień zastosowane w ramach projektu, tj. algorytm k-średnich (K-means) oraz hierarchiczną analizę skupień metodą aglomeracyjną. Metody te należą do najczęściej stosowanych technik uczenia nienadzorowanego i umożliwiają grupowanie obiektów na podstawie ich podobieństwa mierzonego w przestrzeni wielowymiarowej.
 
-\section{cytowanie pracy w której zaproponowano metodę/ewentualnie pracy, w której użyto metodę}
+\section{Algorytm K-means}
 
+\subsection{Opis metody}
+
+Algorytm K-means jest jedną z najczęściej stosowanych metod analizy skupień, której celem jest podział zbioru danych na \(k\) rozłącznych klastrów w taki sposób, aby minimalizować zróżnicowanie wewnątrz poszczególnych grup.
+
+Dla zbioru obserwacji \(X = \{x_1, x_2, \dots, x_n\}\) algorytm minimalizuje funkcję:
+
+\[
+J = \sum_{i=1}^{k} \sum_{x_j \in C_i} \|x_j - \mu_i\|^2
+\]
+
+gdzie:
+\begin{itemize}
+    \item \(k\) -- liczba klastrów,
+    \item \(C_i\) -- i-ty klaster,
+    \item \(x_j\) -- obserwacja,
+    \item \(\mu_i\) -- centroid klastra,
+    \item \(\|\cdot\|\) -- odległość euklidesowa.
+\end{itemize}
+
+Algorytm działa iteracyjnie, naprzemiennie przypisując obserwacje do najbliższych centroidów oraz aktualizując ich położenie jako średnią arytmetyczną przypisanych punktów. Proces ten powtarzany jest do momentu osiągnięcia zbieżności.
+
+\subsection{Interpretacja klastrów}
+
+Wyniki algorytmu K-means polegają na przypisaniu każdej obserwacji do jednego z \(k\) klastrów. Każdy klaster reprezentowany jest przez centroid, który można interpretować jako „typową” obserwację w danej grupie.
+
+W kontekście analizy rynku nieruchomości klastry można interpretować jako segmenty mieszkań o podobnych cechach, takich jak cena, powierzchnia, liczba pokoi czy lokalizacja.
+
+Interpretacja klastrów pozwala na identyfikację różnych segmentów rynku, np. mieszkań:
+\begin{itemize}
+    \item o wysokim standardzie i dużej powierzchni,
+    \item średniego segmentu cenowego,
+    \item małych mieszkań o niższej cenie i gorszej lokalizacji.
+\end{itemize}
+
+Dzięki temu możliwe jest nie tylko grupowanie danych, ale również ich praktyczna interpretacja ekonomiczna, co stanowi główną wartość analizy skupień w niniejszym projekcie.
+
+\subsection{Dobór liczby klastrów}
+
+Jednym z kluczowych etapów algorytmu K-means jest wybór odpowiedniej liczby klastrów \(k\), ponieważ metoda ta nie wyznacza tej wartości automatycznie.
+
+W niniejszej pracy zastosowano metodę tzw. \textit{elbow method} (metody łokcia), która polega na analizie wartości funkcji celu (sumy kwadratów odległości obserwacji od centroidów) dla różnych wartości \(k\).
+
+Dla każdej liczby klastrów obliczono miarę:
+
+\[
+J(k) = \sum_{i=1}^{k} \sum_{x_j \in C_i} \|x_j - \mu_i\|^2
+\]
+
+Następnie analizowano, jak zmienia się wartość \(J(k)\) wraz ze wzrostem liczby klastrów.
+
+Wraz ze wzrostem \(k\) wartość błędu maleje, jednak po pewnym momencie tempo tej poprawy znacząco spada. Punkt ten, określany jako \textit{łokieć}, uznaje się za optymalną liczbę klastrów, ponieważ dalsze zwiększanie liczby grup nie przynosi istotnej poprawy jakości podziału danych.
+
+Zastosowanie tej metody pozwala na kompromis pomiędzy jakością grupowania a jego złożonością interpretacyjną.
+
+\section{Analiza hierarchiczna klastrów}
+
+\subsection{Opis metody}
+
+Analiza hierarchiczna klastrów (ang. \textit{hierarchical clustering}) jest metodą grupowania danych, która nie wymaga wcześniejszego określenia liczby klastrów. Zamiast tego buduje ona hierarchię skupień w postaci drzewa zależności, tzw. dendrogramu.
+
+Metoda ta rozpoczyna się od traktowania każdej obserwacji jako osobnego klastra, a następnie w kolejnych krokach łączy najbardziej podobne grupy, aż do uzyskania jednego wspólnego klastra obejmującego wszystkie obserwacje.
+
+Do określenia podobieństwa pomiędzy obserwacjami wykorzystywana jest miara odległości, najczęściej odległość euklidesowa:
+
+\[
+d(x_i, x_j) = \sqrt{\sum_{p=1}^{m} (x_{ip} - x_{jp})^2}
+\]
+
+gdzie:
+\begin{itemize}
+    \item \(x_i, x_j\) -- obserwacje,
+    \item \(m\) -- liczba zmiennych,
+    \item \(d(x_i, x_j)\) -- odległość pomiędzy obserwacjami.
+\end{itemize}
+
+W procesie łączenia klastrów istotną rolę odgrywa metoda wiązania (ang. \textit{linkage}), która określa sposób obliczania odległości pomiędzy grupami. W niniejszej pracy zastosowano metodę wiązania Warda, która minimalizuje wzrost wariancji wewnątrz klastrów przy każdym połączeniu.
+
+\subsection{Interpretacja metody}
+
+Wynikiem analizy hierarchicznej jest dendrogram, czyli drzewo przedstawiające kolejność łączenia obserwacji i klastrów.
+
+Przecięcie dendrogramu na wybranym poziomie pozwala uzyskać określoną liczbę klastrów, które można interpretować jako segmenty danych o podobnych cechach.
+
+W kontekście analizy rynku nieruchomości metoda ta pozwala na identyfikację naturalnej struktury danych oraz ocenę, jak poszczególne grupy mieszkań łączą się ze sobą w zależności od ich podobieństwa.
+
+Dodatkową zaletą analizy hierarchicznej jest możliwość wizualnej oceny relacji pomiędzy obserwacjami, co ułatwia interpretację struktury danych oraz wybór liczby klastrów.
+
+\section{Podsumowanie metod}
+
+Zastosowanie dwóch różnych metod analizy skupień pozwala na porównanie stabilności oraz jakości otrzymanych wyników. K-means zapewnia efektywność obliczeniową i prostotę implementacji, natomiast metoda hierarchiczna umożliwia bardziej szczegółową analizę struktury danych i wybór liczby klastrów na podstawie dendrogramu.
+
+\section{Przegląd literatury dotyczącej metod}
+
+Metoda K-means została po raz pierwszy formalnie opisana przez Stuarta Lloyda w 1957 roku w kontekście kompresji sygnałów, a następnie szeroko rozpowszechniona w literaturze statystycznej i uczeniu maszynowym.
+
+Jedną z najczęściej cytowanych prac dotyczących algorytmu K-means jest publikacja MacQueena, który w 1967 roku wprowadził pojęcie klastrów w kontekście analizy danych:
+
+\begin{itemize}
+    \item MacQueen, J. (1967). \textit{Some Methods for classification and Analysis of Multivariate Observations}. Proceedings of the Fifth Berkeley Symposium on Mathematical Statistics and Probability.
+\end{itemize}
+
+Współczesne ujęcie metod analizy skupień, w tym zarówno metody K-means, jak i metod hierarchicznych, zostało szczegółowo opisane w literaturze podręcznikowej dotyczącej eksploracyjnej analizy danych, m.in.:
+
+\begin{itemize}
+    \item Jain, A. K., Murty, M. N., \& Flynn, P. J. (1999). \textit{Data Clustering: A Review}. ACM Computing Surveys.
+    \item Hastie, T., Tibshirani, R., \& Friedman, J. (2009). \textit{The Elements of Statistical Learning}. Springer.
+\end{itemize}
+
+Prace te stanowią podstawę teoretyczną dla zastosowanych w niniejszym projekcie metod analizy skupień oraz ich interpretacji w kontekście danych wielowymiarowych.
 \chapter{Wyniki}
 
 (w postaci tabelarycznej i/lub graficznej oraz omówienie wyników)
