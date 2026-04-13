@@ -151,9 +151,126 @@ dev.off()
 
 tabela_miasto <- tabela_miasto[tabela_miasto$price >= 255000, ]
 
+
+## USUNIECIE WARTOSCI ODSTAJACYCH
+# -------------------------------
+# KWANTYLE
+# -------------------------------
+kwantyle <- lapply(zmienne_numeryczne, function(x) {
+  quantile(x, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
+})
+
+print(kwantyle)
+
+# -------------------------------
+# FUNKCJA IQR
+# -------------------------------
+usun_outliery <- function(x) {
+  Q1 <- quantile(x, 0.25, na.rm = TRUE)
+  Q3 <- quantile(x, 0.75, na.rm = TRUE)
+  IQR <- Q3 - Q1
+  
+  dolna <- Q1 - 1.5 * IQR
+  gorna <- Q3 + 1.5 * IQR
+  
+  x[x < dolna | x > gorna] <- NA
+  return(x)
+}
+
+# -------------------------------
+# USUWANIE OBSERWACJI ODSTAJĄCYCH
+# -------------------------------
+
+tabela_clean <- tabela_miasto
+
+tabela_clean$price <- usun_outliery(tabela_clean$price)
+tabela_clean$squareMeters <- usun_outliery(tabela_clean$squareMeters)
+tabela_clean$rooms <- usun_outliery(tabela_clean$rooms)
+tabela_clean$poiCount <- usun_outliery(tabela_clean$poiCount)
+tabela_clean$centreDistance <- usun_outliery(tabela_clean$centreDistance)
+
+# usunięcie wierszy z NA
+tabela_clean <- na.omit(tabela_clean)
+
+# -------------------------------
+# WYKRESY PUDEŁKOWE
+# -------------------------------
+
+png("report/boxplot_price.png", width = 1000, height = 700)
+boxplot(tabela_miasto$price, main="Cena - przed czyszczeniem")
+dev.off()
+
+png("report/boxplot_price_clean.png", width = 1000, height = 700)
+boxplot(tabela_clean$price, main="Cena - po usunięciu outlierów")
+dev.off()
+
+png("report/boxplot_squareMeters.png", width = 1000, height = 700)
+boxplot(tabela_miasto$squareMeters, main="Metraż - przed czyszczeniem")
+dev.off()
+
+png("report/boxplot_squareMeters_clean.png", width = 1000, height = 700)
+boxplot(tabela_clean$squareMeters, main="Metraż - po usunięciu outlierów")
+dev.off()
+
+png("report/boxplot_rooms.png", width = 1000, height = 700)
+boxplot(tabela_miasto$rooms, main="Pokoje - przed czyszczeniem")
+dev.off()
+
+png("report/boxplot_rooms_clean.png", width = 1000, height = 700)
+boxplot(tabela_clean$rooms, main="Pokoje - po usunięciu outlierów")
+dev.off()
+
+png("report/boxplot_poiCount.png", width = 1000, height = 700)
+boxplot(tabela_miasto$poiCount, main="Liczba punktów zainteresowania - przed czyszczeniem")
+dev.off()
+
+png("report/boxplot_poiCoint_clean.png", width = 1000, height = 700)
+boxplot(tabela_clean$poiCount, main="Liczba punktów zainteresowania - po usunięciu outlierów")
+dev.off()
+
+png("report/boxplot_centreDistance.png", width = 1000, height = 700)
+boxplot(tabela_miasto$centreDistance, main="Odległość od centrum - przed czyszczeniem")
+dev.off()
+
+png("report/boxplot_centreDistance_clean.png", width = 1000, height = 700)
+boxplot(tabela_clean$centreDistance, main="Odległość od centrum - po usunięciu outlierów")
+dev.off()
+
+
+# -------------------------------
+# STATYSTYKI PO USUNIĘCIU OUTLIERÓW
+# -------------------------------
+options(scipen = 999)
+
+zmienne_clean <- tabela_clean[, c("price", "squareMeters", "rooms",
+                                  "poiCount", "centreDistance", "hasBalcony")]
+
+statystyki_clean <- data.frame(
+  Srednia = round(sapply(zmienne_clean, mean, na.rm = TRUE), 2),
+  Mediana = round(sapply(zmienne_clean, median, na.rm = TRUE), 2),
+  Minimum = round(sapply(zmienne_clean, min, na.rm = TRUE), 2),
+  Maksimum = round(sapply(zmienne_clean, max, na.rm = TRUE), 2),
+  OdchylenieStandardowe = round(sapply(zmienne_clean, sd, na.rm = TRUE), 2),
+  Skosnosc = round(sapply(zmienne_clean, skewness, na.rm = TRUE), 2)
+)
+
+print(statystyki_clean)
+
+
+kable(statystyki_clean, format = "latex", booktabs = TRUE,
+      caption = "Statystyki opisowe po usunięciu obserwacji odstających",
+      format.args = list(scientific = FALSE, big.mark = " "))
+
+nrow(tabela_miasto)
+nrow(tabela_clean)
+print(100*nrow(tabela_clean)/
+      nrow(tabela_miasto)
+)
+
+
 zmienne_numeryczne <- tabela_miasto[, c("price", "squareMeters", "rooms",
                                                  "poiCount", "centreDistance", "hasBalcony")]
-
+tinytex::install_tinytex()
 library(moments)
 library(knitr)
 

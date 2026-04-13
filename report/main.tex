@@ -404,16 +404,114 @@ W analizowanych danych nie występują braki wartości dla żadnej z uwzględnio
 
 Analiza obserwacji odstających (ang. \textit{outliers}) jest kluczowym etapem przygotowania zbioru danych, ponieważ algorytmy analizy skupień są szczególnie wrażliwe na wartości ekstremalne. Mogą one prowadzić do błędnej interpretacji wyników, przesuwając środki ciężkości tworzonych grup lub tworząc sztuczne, mało liczebne skupiska.
 
-W celu identyfikacji obserwacji odstających zastosowano metodę rozstępu międzykwartylowego (IQR) oraz analizę wizualną za pomocą wykresów pudełkowych (\textit{box-plots}). Proces czyszczenia danych skupił się na następujących aspektach:
+Wartości odstające zidentyfikowano przy użyciu metody rozstępu międzykwartylowego (IQR), definiując obserwacje jako odstające, jeśli znajdowały się poza przedziałem \([Q1 - 1.5 \cdot IQR,\; Q3 + 1.5 \cdot IQR]\). Proces czyszczenia danych skupił się na następujących aspektach:
 
 \begin{itemize}
     \item \textbf{Cena i powierzchnia:} Usunięto oferty, w których cena lub metraż przyjmowały wartości nierealne z punktu widzenia rynku nieruchomości (np. mieszkania o powierzchni powyżej 200 $m^2$ lub ceny jednostkowe drastycznie odbiegające od średniej rynkowej dla Krakowa). Wartości te mogły wynikać z błędów przy wprowadzaniu ogłoszeń.
     \item \textbf{Liczba pokoi:} Zweryfikowano rekordy, w których liczba pokoi była nieproporcjonalna do metrażu. Skupiono się na standardowych lokalach mieszkalnych, eliminując skrajne przypadki, które mogłyby zaburzyć strukturę budowanych skupień.
     \item \textbf{Dystans od centrum:} Sprawdzono poprawność zmiennej \texttt{centreDistance}, aby wykluczyć błędy w lokalizacji, które mogłyby sugerować położenie nieruchomości poza granicami badanego obszaru.
 \end{itemize}
+W wyniku zastosowanej procedury czyszczenia danych liczba obserwacji została zredukowana z 29\,026 do 24\,353, co stanowi około 83.9\% pierwotnego zbioru danych. Oznacza to, że usunięto około 16.1\% rekordów jako zawierających wartości odstające w co najmniej jednej z analizowanych zmiennych.
 
 Ostatecznie, po usunięciu najbardziej skrajnych obserwacji, zbiór danych stał się bardziej spójny. Pozwoliło to na uzyskanie stabilniejszych wyników w dalszych etapach modelowania, zapewniając, że wyodrębnione skupienia będą reprezentować rzeczywiste segmenty rynku, a nie błędy w danych lub przypadki jednostkowe.
 
+
+
+\begin{table}[H]
+
+\caption{Statystyki opisowe po usunięciu obserwacji odstających}
+\centering
+\begin{tabular}[t]{lrrrrrr}
+\toprule
+  & Srednia & Mediana & Minimum & Maksimum & OdchylenieStandardowe & Skosnosc\\
+\midrule
+price & 802 044.61 & 750 000.00 & 255 000.00 & 1 649 000.00 & 250 133.54 & 0.90\\
+squareMeters & 52.56 & 50.75 & 25.00 & 102.72 & 15.35 & 0.63\\
+rooms & 2.48 & 2.00 & 1.00 & 4.00 & 0.76 & 0.18\\
+poiCount & 14.16 & 12.00 & 0.00 & 49.00 & 10.39 & 0.88\\
+centreDistance & 4.42 & 4.36 & 0.42 & 9.99 & 2.06 & 0.25\\
+\addlinespace
+hasBalcony & 0.64 & 1.00 & 0.00 & 1.00 & 0.48 & -0.60\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{boxplot_price.png}
+    \caption{Cena mieszkań przed czyszczeniem}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{boxplot_price_clean.png}
+    \caption{Cena mieszkań po czyszczeniu}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{boxplot_squareMeters.png}
+    \caption{Metraż przed czyszczeniem}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{boxplot_squareMeters_clean.png}
+    \caption{Metraż po czyszczeniu}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{boxplot_rooms.png}
+    \caption{Pokoje przed czyszczeniem}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{boxplot_rooms_clean.png}
+    \caption{Pokoje po czyszczeniu}
+\end{minipage}
+
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{boxplot_poiCount.png}
+    \caption{Liczba punktów zainteresowania przed czyszczeniem}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{boxplot_poiCoint_clean.png}
+    \caption{Liczba punktów zainteresowania po czyszczeniu}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{boxplot_centreDistance.png}
+    \caption{Odległość od centrum przed czyszczeniem}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{boxplot_centreDistance_clean.png}
+    \caption{Odległość od centrum po czyszczeniu}
+\end{minipage}
+
+\end{figure}
 
 \chapter{Opis metod}
 
