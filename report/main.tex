@@ -86,7 +86,9 @@
 \usepackage{subcaption}
 
 \title{\LARGE{Analiza skupień danych dotyczących cen mieszkań}
+
 \vspace{0.3cm}
+
 \Large{Metody Analizy Danych - zadanie projektowe 1}}
 
 \author{
@@ -113,7 +115,7 @@ Dzięki temu można wskazać segmenty rynku mieszkaniowego różniące się pozi
 Taki projekt pomaga lepiej zrozumieć strukturę polskiego rynku mieszkań i stanowi dobrą podstawę do dalszej analizy trendów cenowych oraz porównań regionalnych.
 
 \vspace{0.5cm}
-\noindent\textbf{Słowa kluczowe:} analiza skupień, klastry, ceny mieszkań
+\noindent\textbf{Słowa kluczowe:} analiza skupień, klastry, ceny mieszkań, K-means, metoda hierarchiczna
 
 \chapter{Wstęp}
 
@@ -134,21 +136,56 @@ Realizacja projektu ma na celu:
 
 \chapter{Przedmiot badania}
 
-Badanie ograniczymy do jednego z miast z dostepnych danych. Analizując ilość wynajmów w poszczególnych miastach, wybieramy miasto z największą ilością wynajmów (oprócz Warszawy), co pozwoli nam na uzyskanie bardziej reprezentatywnych wyników analizy skupień. Na poniższym wykresie przedstawiono ilość wynajmów w poszczególnych miastach.
+Przedmiotem badania są oferty mieszkań pochodzące ze zbioru danych udostępnionego w serwisie Kaggle, obejmującego ogłoszenia sprzedaży i najmu z 15 największych miast Polski. Na potrzeby niniejszej pracy analizę zawężono do jednego miasta, aby uzyskać bardziej jednorodny i porównywalny zbiór obserwacji, umożliwiający przeprowadzenie pogłębionej analizy skupień.
+
+W pierwszym etapie porównano ogólną liczbę dostępnych ofert w poszczególnych miastach. Na podstawie tej analizy do dalszego badania wybrano Kraków, który charakteryzuje się bardzo dużą liczbą ogłoszeń, ustępując pod tym względem jedynie Warszawie. Duża liczebność obserwacji zwiększa wiarygodność wyników i pozwala lepiej uchwycić zróżnicowanie badanego rynku.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.99\linewidth]{miasta_najwiecej_wynajmow.png}
-    \caption{Ilość wynajmów w poszczególnych miastach z podziałem na miesiące}
+    \caption{Liczba ofert mieszkaniowych w poszczególnych miastach z podziałem na miesiące}
 \end{figure}
 
-Miastem, które wybraliśmy do analizy jest Kraków, który charakteryzuje się największą ilością wynajmów spośród wszystkich miast (oprócz Warszawy). Wybór ten pozwoli nam na uzyskanie bardziej reprezentatywnych wyników analizy skupień, ponieważ większa ilość danych umożliwi lepsze zidentyfikowanie wzorców i grup w danych dotyczących cen mieszkań w Krakowie.
+Choć zbiór danych zawiera zarówno oferty sprzedaży, jak i najmu, dalszą analizę ograniczono wyłącznie do ofert sprzedaży mieszkań w Krakowie. Decyzja ta wynika z faktu, że ceny sprzedaży i ceny najmu opisują różne zjawiska ekonomiczne, przez co ich łączne analizowanie mogłoby prowadzić do niejednoznacznych i trudnych do interpretacji wyników. Ograniczenie badania do jednego typu ofert pozwala zachować spójność analizowanego zbioru.
+
+Jednostką badania jest pojedyncza oferta mieszkania opisana za pomocą zestawu cech ilościowych i jakościowych. W analizie uwzględniono zmienne odnoszące się zarówno do właściwości samego lokalu, jak i do jego położenia oraz otoczenia. Są to: cena mieszkania, powierzchnia użytkowa, liczba pokoi, liczba punktów zainteresowania w promieniu 500 metrów, odległość od centrum miasta oraz informacja o posiadaniu balkonu.
+
+W celu zapewnienia jakości dalszych analiz zbiór danych został poddany wstępnemu przygotowaniu, obejmującemu wybór ofert sprzedaży z Krakowa, ocenę kompletności danych oraz usunięcie obserwacji odstających. Tak przygotowany materiał badawczy stanowi podstawę do zastosowania metod analizy skupień, których celem jest identyfikacja grup mieszkań o podobnej charakterystyce.
 
 \section{Cel i zakres badania}
 
+Celem badania jest identyfikacja jednorodnych grup ofert mieszkań na rynku krakowskim przy wykorzystaniu metod analizy skupień. W szczególności chodzi o sprawdzenie, czy na podstawie wybranych cech nieruchomości możliwe jest wyodrębnienie segmentów rynku różniących się poziomem cen, wielkością mieszkań, liczbą pokoi, dostępnością infrastruktury w otoczeniu oraz położeniem względem centrum miasta.
+
+Badanie ma charakter eksploracyjny i wykorzystuje metody uczenia nienadzorowanego, co oznacza, że analizowane dane nie zawierają z góry przypisanych kategorii mieszkań. Zamiast tego celem jest wykrycie naturalnej struktury zbioru danych i wskazanie, jakie typy ofert występują na badanym rynku. Pozwala to spojrzeć na rynek nieruchomości nie przez pryzmat pojedynczych ogłoszeń, lecz przez pryzmat powtarzalnych segmentów o podobnych właściwościach.
+
+Zakres badania został zawężony do ofert dotyczących miasta Krakowa. Wybór tego miasta wynika z dużej liczby dostępnych obserwacji, co zwiększa reprezentatywność wyników i pozwala na bardziej wiarygodne zastosowanie metod grupowania. Dalszą analizę ograniczono wyłącznie do ofert sprzedaży mieszkań, ponieważ łączne analizowanie cen sprzedaży i cen najmu prowadziłoby do nieporównywalności obserwacji oraz mogłoby zaburzać wyniki analizy skupień.
+
+W badaniu uwzględniono zmienne opisujące zarówno cechy fizyczne mieszkań, jak i ich otoczenie, tj. cenę, powierzchnię, liczbę pokoi, liczbę punktów zainteresowania w promieniu 500 metrów, odległość od centrum miasta oraz informację o posiadaniu balkonu. Przed właściwą analizą przeprowadzono wstępne przygotowanie danych obejmujące ograniczenie zbioru do ofert sprzedaży, ocenę kompletności danych oraz usunięcie obserwacji odstających.
+
+W części analitycznej zastosowano dwie metody grupowania: algorytm K-średnich oraz hierarchiczną analizę skupień metodą Warda. Pozwoliło to nie tylko na wyznaczenie segmentów rynku, lecz także na porównanie wyników uzyskanych różnymi podejściami i ocenę ich spójności.
+
+Realizacja celu badania będzie oceniana poprzez odpowiedź na trzy pytania: czy w danych można wskazać wyraźne skupienia ofert mieszkań, czy wyodrębnione klastry dają się sensownie zinterpretować ekonomicznie oraz czy wyniki uzyskane różnymi metodami analizy skupień są ze sobą zgodne. Tak sformułowany cel pozwala w końcowym podsumowaniu jednoznacznie ocenić, w jakim stopniu projekt doprowadził do poznania struktury badanego fragmentu rynku nieruchomości.
+
+
+
+
+
 \section{Przegląd literatury}
 
-(min. 1 cytowanie powiązane tematycznie i krótki opis co było badane)
+%(min. 1 cytowanie powiązane tematycznie i krótki opis co było badane)
+
+W literaturze dotyczącej rynku nieruchomości podkreśla się, że rynek mieszkaniowy nie ma charakteru jednorodnego, lecz składa się z wielu segmentów lub subrynków różniących się cenami, lokalizacją, standardem oraz cechami samych nieruchomości. Oznacza to, że mieszkania nie konkurują ze sobą w jednakowym stopniu, a podobieństwo ofert zależy zarówno od cech fizycznych lokalu, jak i od jego otoczenia. W konsekwencji badanie struktury rynku wymaga stosowania metod, które pozwalają identyfikować grupy obiektów podobnych do siebie wewnętrznie, a zarazem odmiennych od pozostałych.
+
+Jedną z ważniejszych prac w tym obszarze jest artykuł Bourassy, Hamelinka, Hoesliego i MacGregora \cite{bourassa1999}. Autorzy zaproponowali statystyczny sposób wyodrębniania subrynków mieszkaniowych z wykorzystaniem analizy czynnikowej oraz analizy skupień. Następnie porównali jakość tak wyznaczonych podziałów z innymi sposobami klasyfikacji rynku. Wyniki ich badania pokazały, że empirycznie wyodrębnione subrynki mogą lepiej odzwierciedlać zróżnicowanie rynku niż podziały przyjęte arbitralnie. Praca ta stanowi istotne uzasadnienie dla stosowania metod grupowania w analizie danych mieszkaniowych.
+
+W odniesieniu do warunków polskich szczególnie istotna jest praca Mateusza Tomala \cite{tomal2021}. Autor badał zróżnicowanie rynków mieszkaniowych w Polsce i wykazał, że można wyróżnić jednorodne klastry rynków różniących się wielkością zasobu mieszkaniowego, jego jakością oraz poziomem cen. Badanie to potwierdza, że także w Polsce rynek nieruchomości cechuje się wyraźną heterogenicznością, a zastosowanie metod klasteryzacji pozwala uchwycić jego strukturę w sposób uporządkowany i interpretowalny. Z perspektywy niniejszej pracy wniosek ten jest szczególnie ważny, ponieważ wspiera zasadność poszukiwania segmentów również na poziomie pojedynczego miasta.
+
+Uzupełnieniem tego podejścia jest praca Tomala i Helbicha \cite{tomalhelbich2022}, poświęcona analizie subrynków mieszkaniowych w Krakowie. Autorzy wykazali, że nawet w obrębie jednego miasta możliwe jest wyróżnienie obszarów i grup ofert o odmiennej charakterystyce, a znaczenie poszczególnych cech mieszkań i ich lokalizacji może zmieniać się w czasie. Choć badanie dotyczyło rynku najmu, a nie sprzedaży, stanowi ono ważny punkt odniesienia dla niniejszego projektu, ponieważ potwierdza istnienie wewnętrznego zróżnicowania krakowskiego rynku mieszkaniowego oraz znaczenie cech lokalizacyjnych i otoczenia dla kształtowania się segmentów rynku.
+
+Przywołane badania wskazują więc, że analiza skupień jest uzasadnionym narzędziem badania rynku mieszkaniowego. Literatura dostarcza zarówno podstaw teoretycznych dla pojęcia subrynku mieszkaniowego, jak i empirycznych przykładów pokazujących, że segmentacja rynku może być skutecznie analizowana metodami statystycznymi. Na tym tle niniejsza praca wpisuje się w istniejący nurt badań, koncentrując się na identyfikacji skupień ofert sprzedaży mieszkań w Krakowie na podstawie cech opisujących lokal, jego cenę oraz położenie.
+
+
+
 
 \section{Zmienne wybrane do analizy}
 
@@ -392,7 +429,7 @@ hasBalcony & 0.62 & 1.00 & 0.00 & 1.00 & 0.49 & -0.49\\
 % \end{figure}
 
 
-\subsection{braki danych}
+\subsection{Braki Danych}
 
 % czy występują i jak je obsłużono
 
@@ -520,7 +557,7 @@ W niniejszym rozdziale przedstawiono dwie metody analizy skupień zastosowane w 
 
 \subsection{Opis metody}
 
-Algorytm K-means jest jedną z najczęściej stosowanych metod analizy skupień, której celem jest podział zbioru danych na \(k\) rozłącznych klastrów w taki sposób, aby minimalizować zróżnicowanie wewnątrz poszczególnych grup.
+Algorytm K-means jest jedną z najczęściej stosowanych metod analizy skupień \cite{macqueen1967,jain1999,hastie2009}, której celem jest podział zbioru danych na \(k\) rozłącznych klastrów w taki sposób, aby minimalizować zróżnicowanie wewnątrz poszczególnych grup.
 
 Dla zbioru obserwacji \(X = \{x_1, x_2, \dots, x_n\}\) algorytm minimalizuje funkcję:
 
@@ -593,7 +630,7 @@ gdzie:
     \item \(d(x_i, x_j)\) -- odległość pomiędzy obserwacjami.
 \end{itemize}
 
-W procesie łączenia klastrów istotną rolę odgrywa metoda wiązania (ang. \textit{linkage}), która określa sposób obliczania odległości pomiędzy grupami. W niniejszej pracy zastosowano metodę wiązania Warda, która minimalizuje wzrost wariancji wewnątrz klastrów przy każdym połączeniu.
+W procesie łączenia klastrów istotną rolę odgrywa metoda wiązania (ang. \textit{linkage}), która określa sposób obliczania odległości pomiędzy grupami. W niniejszej pracy zastosowano metodę wiązania Warda \cite{ward1963}, która minimalizuje wzrost wariancji wewnątrz klastrów przy każdym połączeniu.
 
 \subsection{Interpretacja metody}
 
@@ -626,7 +663,14 @@ Współczesne ujęcie metod analizy skupień, w tym zarówno metody K-means, jak
     \item Hastie, T., Tibshirani, R., \& Friedman, J. (2009). \textit{The Elements of Statistical Learning}. Springer.
 \end{itemize}
 
-Prace te stanowią podstawę teoretyczną dla zastosowanych w niniejszym projekcie metod analizy skupień oraz ich interpretacji w kontekście danych wielowymiarowych.
+Prace te stanowią podstawę teoretyczną dla zastosowanych w niniejszym projekcie metod analizy skupień oraz ich interpretacji w kontekście danych wielowymiarowych \cite{macqueen1967,ward1963,jain1999,hastie2009}.
+
+
+
+
+
+
+
 \chapter{Wyniki}
 
 W niniejszym rozdziale zaprezentowano wyniki przeprowadzonej analizy skupień dla rynku nieruchomości w Krakowie. Proces badawczy obejmował wyznaczenie optymalnej liczby klastrów, podział zbioru danych algorytmem K-średnich oraz weryfikację struktury danych metodą hierarchiczną.
@@ -671,9 +715,11 @@ Balkon (1=tak) & 0,76 & 0,38 & 0,79 \\
 Na podstawie analizy statystycznej centrów skupień można zdefiniować następujące typy ofert występujących na krakowskim rynku:
 
 \begin{itemize}
-    \item \textbf{Skupienie 1 (Segment Ekonomiczny/Peryferyjny):} Charakteryzuje się najniższą ceną całkowitą oraz największą odległością od centrum miasta. Są to zazwyczaj mieszkania w dzielnicach sypialnianych o standardowym metrażu.
-    \item \textbf{Skupienie 2 (Segment Kompaktowy/Miejski):} Obejmuje mniejsze lokale (kawalerki i małe 2-pokojowe) położone bliżej centrum, z bardzo wysoką dostępnością punktów użyteczności publicznej (POI).
-    \item \textbf{Skupienie 3 (Segment Premium/Duże Metraże):} Grupa skupiająca najdroższe oferty o największej powierzchni. Są to często apartamenty w prestiżowych lokalizacjach lub duże mieszkania rodzinne.
+    \item \textbf{Skupienie 1 (Segment Premium/Duże Metraże):} Grupa skupiająca najdroższe oferty o największej powierzchni oraz największej liczbie pokoi. Są to często apartamenty w prestiżowych lokalizacjach lub duże mieszkania rodzinne.
+    
+    \item \textbf{Skupienie 2 (Segment Kompaktowy/Ekonomiczny):} Obejmuje mieszkania o najniższej średniej cenie, najmniejszej powierzchni i najmniejszej liczbie pokoi. Są to zazwyczaj mniejsze lokale, bardziej dostępne cenowo, skierowane m.in. do singli, par lub inwestorów.
+    
+    \item \textbf{Skupienie 3 (Segment Peryferyjny/Pośredni):} Charakteryzuje się pośrednimi wartościami ceny, metrażu i liczby pokoi, ale największą odległością od centrum miasta. Są to zazwyczaj mieszkania położone na obrzeżach miasta, stanowiące kompromis między parametrami użytkowymi a lokalizacją.
 \end{itemize}
 
 \section{Weryfikacja metodą hierarchiczną}
@@ -693,7 +739,7 @@ Dokonano porównania wyników uzyskanych dwiema niezależnymi metodami: algorytm
 
 \begin{itemize}
     \item \textbf{Zbieżność podziału:} Obie zastosowane metody wskazały na istnienie trzech dominujących skupień w badanym zbiorze danych. Metoda łokcia (Rys. \ref{fig:elbow}) oraz struktura dendrogramu (Rys. \ref{fig:dendrogram}) wykazują wysoką spójność, co świadczy o stabilności wyodrębnionych segmentów rynku.
-    \item \textbf{Ocena jakości:} Skupienia charakteryzują się wysoką jednorodnością wewnątrzgałęziową. Klaster 1 (Premium) i Klaster 2 (Kompaktowy) są od siebie wyraźnie odseparowane pod względem ceny i metrażu, podczas gdy Klaster 3 (Peryferyjny) stanowi naturalne dopełnienie struktury rynku, grupując oferty o specyficznej lokalizacji.
+    \item \textbf{Ocena jakości:} Skupienia charakteryzują się wysoką jednorodnością wewnątrzgałęziową. Klaster 1 (Premium), Klaster 2 (Kompaktowy/Ekonomiczny) oraz Klaster 3 (Peryferyjny/Pośredni) różnią się wyraźnie pod względem ceny, metrażu i lokalizacji, co wskazuje na sensowność otrzymanego podziału rynku.
     \item \textbf{Weryfikacja założeń:} Wykorzystanie ustandaryzowanych zmiennych pozwoliło na uniknięcie dominacji zmiennej „Cena” nad pozostałymi deskryptorami, co przekłada się na merytoryczną poprawność klastrowania.
 \end{itemize}
 
@@ -701,10 +747,98 @@ Podsumowując, zastosowanie dwóch różnych podejść algorytmicznych pozwolił
 
 \chapter{Podsumowanie}
 
-(ocena realizacji celu, odniesienie do pozycji z przeglądu literatury)
-
-\chapter{Bibliografia}
+%(ocena realizacji celu, odniesienie do pozycji z przeglądu literatury)
 
 
+Celem niniejszej pracy była identyfikacja jednorodnych grup ofert sprzedaży mieszkań w Krakowie przy wykorzystaniu metod analizy skupień. Założono, że na podstawie wybranych cech nieruchomości, takich jak cena, powierzchnia, liczba pokoi, odległość od centrum, liczba punktów zainteresowania w otoczeniu oraz informacja o posiadaniu balkonu, możliwe będzie wyodrębnienie segmentów rynku różniących się charakterystyką i poziomem atrakcyjności. Na podstawie przeprowadzonych analiz można stwierdzić, że cel pracy został zrealizowany.
+
+\section{Ocena realizacji celu}
+
+\textbf{Po pierwsze, w danych można wskazać wyraźne skupienia ofert mieszkań.} Zastosowanie metody łokcia w analizie algorytmu K-średnich wskazało, że optymalnym rozwiązaniem jest podział zbioru na trzy klastry. Wynik ten został dodatkowo potwierdzony przez analizę hierarchiczną metodą Warda, której dendrogram również sugerował istnienie trzech głównych grup. Oznacza to, że badany zbiór nie ma charakteru przypadkowego ani jednorodnego, lecz wykazuje wewnętrzną strukturę, którą można opisać za pomocą metod grupowania.
+
+\textbf{Po drugie, wyodrębnione klastry dają się sensownie zinterpretować ekonomicznie.} Otrzymane skupienia różniły się między sobą przede wszystkim poziomem cen, powierzchnią mieszkań, liczbą pokoi oraz położeniem względem centrum miasta. Pozwala to traktować je jako odmienne segmenty rynku mieszkaniowego, obejmujące oferty o różnym standardzie, funkcji i dostępności cenowej. Tym samym analiza skupień nie doprowadziła jedynie do technicznego podziału danych, lecz umożliwiła także sformułowanie wniosków dotyczących struktury rynku nieruchomości w Krakowie.
+
+\textbf{Po trzecie, wyniki uzyskane różnymi metodami analizy skupień są ze sobą zgodne.} Zarówno algorytm K-średnich, jak i hierarchiczna analiza skupień prowadzą do wniosku, że najbardziej uzasadniony jest podział na trzy główne segmenty rynku. Zbieżność wyników uzyskanych niezależnymi metodami zwiększa wiarygodność przeprowadzonej analizy i wskazuje, że otrzymany podział nie jest efektem przypadku ani specyfiki pojedynczego algorytmu.
+
+\section{Ocena uzyskanych wyników w kontekście literatury przedmiotu}
+
+Uzyskane wyniki są zgodne z wnioskami przedstawionymi w literaturze przedmiotu. Bourassa, Hamelink, Hoesli i MacGregor \cite{bourassa1999} wskazywali, że subrynki mieszkaniowe mogą być wyodrębniane empirycznie przy użyciu metod statystycznych, w tym analizy skupień, a taki podział może lepiej odzwierciedlać zróżnicowanie rynku niż klasyfikacje arbitralne. Wyniki niniejszej pracy potwierdzają tę obserwację, ponieważ zastosowane metody pozwoliły wyodrębnić sensowne segmenty rynku mieszkań na podstawie rzeczywistych cech ofert.
+
+Przeprowadzona analiza pozostaje również spójna z badaniem Tomala \cite{tomal2021}, który wykazał, że rynek mieszkaniowy w Polsce cechuje się wyraźną heterogenicznością, a zastosowanie metod klasteryzacji umożliwia identyfikację jednorodnych grup rynków różniących się poziomem cen i cechami zasobu mieszkaniowego. W niniejszej pracy podobny mechanizm zaobserwowano na niższym poziomie agregacji, tj. w obrębie jednego miasta. Oznacza to, że zróżnicowanie rynku mieszkaniowego jest widoczne nie tylko pomiędzy rynkami lokalnymi w Polsce, ale także wewnątrz pojedynczego rynku miejskiego.
+
+Wyniki badania można także odnieść do pracy Tomala i Helbicha \cite{tomalhelbich2022}, którzy pokazali, że rynek mieszkaniowy w Krakowie ma wewnętrzną strukturę i może być analizowany jako zbiór subrynków o odmiennej charakterystyce. Choć ich badanie dotyczyło rynku najmu, a nie sprzedaży, uzyskane przez nich wnioski o niejednorodności rynku krakowskiego znajdują potwierdzenie również w niniejszej pracy. Otrzymane skupienia wskazują bowiem, że oferty mieszkań w Krakowie różnią się nie tylko ceną, ale także relacją między wielkością lokalu, jego położeniem oraz cechami otoczenia.
+
+Należy jednocześnie zauważyć, że przeprowadzona analiza ma pewne ograniczenia. Badanie oparto na jednym mieście oraz na ograniczonym zestawie zmiennych, co oznacza, że uzyskane klastry nie wyczerpują całej złożoności rynku nieruchomości. W dalszych pracach możliwe byłoby rozszerzenie analizy o dodatkowe cechy, takie jak standard wykończenia, rok budowy, piętro czy forma własności, a także porównanie wyników dla innych miast. Mimo tych ograniczeń uzyskane rezultaty pozwalają uznać, że analiza skupień stanowi użyteczne narzędzie segmentacji rynku mieszkaniowego.
+
+Podsumowując, cel pracy został osiągnięty: w danych dotyczących ofert sprzedaży mieszkań w Krakowie zidentyfikowano wyraźne i interpretowalne skupienia, a otrzymane wyniki okazały się spójne zarówno pomiędzy zastosowanymi metodami, jak i z ustaleniami przedstawionymi w literaturze przedmiotu.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{thebibliography}{9}
+
+\bibitem{bourassa1999}
+Bourassa, S. C., Hamelink, F., Hoesli, M., MacGregor, B. D. (1999).
+\textit{Defining Housing Submarkets}.
+Journal of Housing Economics, 8(2), 160--183.
+\url{https://doi.org/10.1006/jhec.1999.0246}
+
+\bibitem{tomal2021}
+Tomal, M. (2021).
+\textit{Housing market heterogeneity and cluster formation: evidence from Poland}.
+International Journal of Housing Markets and Analysis, 14(5), 1166--1185.
+\url{https://doi.org/10.1108/IJHMA-09-2020-0114}
+
+\bibitem{tomalhelbich2022}
+Tomal, M., Helbich, M. (2022).
+\textit{The private rental housing market before and during the COVID-19 pandemic: A submarket analysis in Cracow, Poland}.
+Environment and Planning B: Urban Analytics and City Science, 49(6), 1646--1662.
+\url{https://doi.org/10.1177/23998083211062907}
+
+\bibitem{macqueen1967}
+MacQueen, J. B. (1967).
+\textit{Some Methods for Classification and Analysis of Multivariate Observations}.
+In: Le Cam, L. M., Neyman, J. (red.),
+\textit{Proceedings of the Fifth Berkeley Symposium on Mathematical Statistics and Probability},
+Vol. 1, University of California Press, 281--297.
+
+\bibitem{ward1963}
+Ward, J. H. Jr. (1963).
+\textit{Hierarchical Grouping to Optimize an Objective Function}.
+Journal of the American Statistical Association, 58(301), 236--244.
+\url{https://doi.org/10.1080/01621459.1963.10500845}
+
+\bibitem{jain1999}
+Jain, A. K., Murty, M. N., Flynn, P. J. (1999).
+\textit{Data Clustering: A Review}.
+ACM Computing Surveys, 31(3), 264--323.
+\url{https://doi.org/10.1145/331499.331504}
+
+\bibitem{hastie2009}
+Hastie, T., Tibshirani, R., Friedman, J. (2009).
+\textit{The Elements of Statistical Learning: Data Mining, Inference, and Prediction}.
+2nd ed., Springer.
+\url{https://doi.org/10.1007/978-0-387-84858-7}
+
+\end{thebibliography}
 
 \end{document}

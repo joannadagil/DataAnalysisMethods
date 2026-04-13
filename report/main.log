@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.28)  10 APR 2026 21:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.28)  13 APR 2026 22:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -678,24 +678,24 @@ Package caption Info: New subtype `subtable' on input line 238.
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -750,7 +750,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (c:/texlive/2024/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring ON on input line 101.
+Package hyperref Info: Link coloring ON on input line 103.
  (./main.out) (./main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
@@ -772,7 +772,7 @@ Package caption Info: End \AtBeginDocument code.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.107 \chapter
+l.109 \chapter
               *{Streszczenie} [1
 
 ]
@@ -785,12 +785,12 @@ Rozdzia\l  1.
 
 [3
 
-]
+{c:/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 Rozdzia\l  2.
-<miasta_najwiecej_wynajmow.png, id=112, 1445.4pt x 813.0375pt>
+<miasta_najwiecej_wynajmow.png, id=178, 1445.4pt x 813.0375pt>
 File: miasta_najwiecej_wynajmow.png Graphic file (type png)
 <use miasta_najwiecej_wynajmow.png>
-Package pdftex.def Info: miasta_najwiecej_wynajmow.png  used on input line 126.
+Package pdftex.def Info: miasta_najwiecej_wynajmow.png  used on input line 145.
 (pdftex.def)             Requested size: 439.14513pt x 247.01462pt.
 
 
@@ -799,108 +799,189 @@ Package pdftex.def Info: miasta_najwiecej_wynajmow.png  used on input line 126.
  <./miasta_najwiecej_wynajmow.png>]
 
 [5]
-Overfull \hbox (35.96393pt too wide) in paragraph at lines 187--199
- [][] 
- []
-
-<podstawowa_wizualizacja_centreDistance.png, id=131, 1003.75pt x 702.625pt>
-File: podstawowa_wizualizacja_centreDistance.png Graphic file (type png)
-<use podstawowa_wizualizacja_centreDistance.png>
-Package pdftex.def Info: podstawowa_wizualizacja_centreDistance.png  used on input line 216.
-(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
-<podstawowa_wizualizacja_hasBalcony.png, id=132, 1003.75pt x 702.625pt>
-File: podstawowa_wizualizacja_hasBalcony.png Graphic file (type png)
-<use podstawowa_wizualizacja_hasBalcony.png>
-Package pdftex.def Info: podstawowa_wizualizacja_hasBalcony.png  used on input line 222.
-(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
-<podstawowa_wizualizacja_poiCount.png, id=133, 1003.75pt x 702.625pt>
-File: podstawowa_wizualizacja_poiCount.png Graphic file (type png)
-<use podstawowa_wizualizacja_poiCount.png>
-Package pdftex.def Info: podstawowa_wizualizacja_poiCount.png  used on input line 230.
-(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
-<podstawowa_wizualizacja_price.png, id=134, 1003.75pt x 702.625pt>
-File: podstawowa_wizualizacja_price.png Graphic file (type png)
-<use podstawowa_wizualizacja_price.png>
-Package pdftex.def Info: podstawowa_wizualizacja_price.png  used on input line 236.
-(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
-<podstawowa_wizualizacja_rooms.png, id=135, 1003.75pt x 702.625pt>
-File: podstawowa_wizualizacja_rooms.png Graphic file (type png)
-<use podstawowa_wizualizacja_rooms.png>
-Package pdftex.def Info: podstawowa_wizualizacja_rooms.png  used on input line 244.
-(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
-<podstawowa_wizualizacja_squareMeters.png, id=136, 1003.75pt x 702.625pt>
-File: podstawowa_wizualizacja_squareMeters.png Graphic file (type png)
-<use podstawowa_wizualizacja_squareMeters.png>
-Package pdftex.def Info: podstawowa_wizualizacja_squareMeters.png  used on input line 250.
-(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
-
 
 [6]
-
-[7 <./podstawowa_wizualizacja_centreDistance.png> <./podstawowa_wizualizacja_hasBalcony.png> <./podstawowa_wizualizacja_poiCount.png> <./podstawowa_wizualizacja_price.png> <./podstawowa_wizualizacja_rooms.png> <./podstawowa_wizualizacja_squareMeters.png>]
-Overfull \hbox (39.85187pt too wide) in paragraph at lines 267--279
+Overfull \hbox (35.96393pt too wide) in paragraph at lines 239--251
  [][] 
  []
 
-<podstawowa_wizualizacja_centreDistance_sama_sprzedaz.png, id=156, 1003.75pt x 702.625pt>
+<podstawowa_wizualizacja_centreDistance.png, id=206, 1003.75pt x 702.625pt>
+File: podstawowa_wizualizacja_centreDistance.png Graphic file (type png)
+<use podstawowa_wizualizacja_centreDistance.png>
+Package pdftex.def Info: podstawowa_wizualizacja_centreDistance.png  used on input line 268.
+(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
+<podstawowa_wizualizacja_hasBalcony.png, id=207, 1003.75pt x 702.625pt>
+File: podstawowa_wizualizacja_hasBalcony.png Graphic file (type png)
+<use podstawowa_wizualizacja_hasBalcony.png>
+Package pdftex.def Info: podstawowa_wizualizacja_hasBalcony.png  used on input line 274.
+(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
+<podstawowa_wizualizacja_poiCount.png, id=208, 1003.75pt x 702.625pt>
+File: podstawowa_wizualizacja_poiCount.png Graphic file (type png)
+<use podstawowa_wizualizacja_poiCount.png>
+Package pdftex.def Info: podstawowa_wizualizacja_poiCount.png  used on input line 282.
+(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
+<podstawowa_wizualizacja_price.png, id=209, 1003.75pt x 702.625pt>
+File: podstawowa_wizualizacja_price.png Graphic file (type png)
+<use podstawowa_wizualizacja_price.png>
+Package pdftex.def Info: podstawowa_wizualizacja_price.png  used on input line 288.
+(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
+<podstawowa_wizualizacja_rooms.png, id=210, 1003.75pt x 702.625pt>
+File: podstawowa_wizualizacja_rooms.png Graphic file (type png)
+<use podstawowa_wizualizacja_rooms.png>
+Package pdftex.def Info: podstawowa_wizualizacja_rooms.png  used on input line 296.
+(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
+<podstawowa_wizualizacja_squareMeters.png, id=211, 1003.75pt x 702.625pt>
+File: podstawowa_wizualizacja_squareMeters.png Graphic file (type png)
+<use podstawowa_wizualizacja_squareMeters.png>
+Package pdftex.def Info: podstawowa_wizualizacja_squareMeters.png  used on input line 302.
+(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
+
+
+[7]
+
+[8 <./podstawowa_wizualizacja_centreDistance.png> <./podstawowa_wizualizacja_hasBalcony.png> <./podstawowa_wizualizacja_poiCount.png> <./podstawowa_wizualizacja_price.png> <./podstawowa_wizualizacja_rooms.png> <./podstawowa_wizualizacja_squareMeters.png>]
+Overfull \hbox (39.85187pt too wide) in paragraph at lines 319--331
+ [][] 
+ []
+
+<podstawowa_wizualizacja_centreDistance_sama_sprzedaz.png, id=232, 1003.75pt x 702.625pt>
 File: podstawowa_wizualizacja_centreDistance_sama_sprzedaz.png Graphic file (type png)
 <use podstawowa_wizualizacja_centreDistance_sama_sprzedaz.png>
-Package pdftex.def Info: podstawowa_wizualizacja_centreDistance_sama_sprzedaz.png  used on input line 286.
+Package pdftex.def Info: podstawowa_wizualizacja_centreDistance_sama_sprzedaz.png  used on input line 338.
 (pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
-<podstawowa_wizualizacja_hasBalcony_sama_sprzedaz.png, id=157, 1003.75pt x 702.625pt>
+<podstawowa_wizualizacja_hasBalcony_sama_sprzedaz.png, id=233, 1003.75pt x 702.625pt>
 File: podstawowa_wizualizacja_hasBalcony_sama_sprzedaz.png Graphic file (type png)
 <use podstawowa_wizualizacja_hasBalcony_sama_sprzedaz.png>
-Package pdftex.def Info: podstawowa_wizualizacja_hasBalcony_sama_sprzedaz.png  used on input line 292.
+Package pdftex.def Info: podstawowa_wizualizacja_hasBalcony_sama_sprzedaz.png  used on input line 344.
 (pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
-<podstawowa_wizualizacja_poiCount_sama_sprzedaz.png, id=158, 1003.75pt x 702.625pt>
+<podstawowa_wizualizacja_poiCount_sama_sprzedaz.png, id=234, 1003.75pt x 702.625pt>
 File: podstawowa_wizualizacja_poiCount_sama_sprzedaz.png Graphic file (type png)
 <use podstawowa_wizualizacja_poiCount_sama_sprzedaz.png>
-Package pdftex.def Info: podstawowa_wizualizacja_poiCount_sama_sprzedaz.png  used on input line 300.
+Package pdftex.def Info: podstawowa_wizualizacja_poiCount_sama_sprzedaz.png  used on input line 352.
 (pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
-<podstawowa_wizualizacja_price_sama_sprzedaz.png, id=159, 1003.75pt x 702.625pt>
+<podstawowa_wizualizacja_price_sama_sprzedaz.png, id=235, 1003.75pt x 702.625pt>
 File: podstawowa_wizualizacja_price_sama_sprzedaz.png Graphic file (type png)
 <use podstawowa_wizualizacja_price_sama_sprzedaz.png>
-Package pdftex.def Info: podstawowa_wizualizacja_price_sama_sprzedaz.png  used on input line 306.
+Package pdftex.def Info: podstawowa_wizualizacja_price_sama_sprzedaz.png  used on input line 358.
 (pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
-<podstawowa_wizualizacja_rooms_sama_sprzedaz.png, id=160, 1003.75pt x 702.625pt>
+<podstawowa_wizualizacja_rooms_sama_sprzedaz.png, id=236, 1003.75pt x 702.625pt>
 File: podstawowa_wizualizacja_rooms_sama_sprzedaz.png Graphic file (type png)
 <use podstawowa_wizualizacja_rooms_sama_sprzedaz.png>
-Package pdftex.def Info: podstawowa_wizualizacja_rooms_sama_sprzedaz.png  used on input line 314.
+Package pdftex.def Info: podstawowa_wizualizacja_rooms_sama_sprzedaz.png  used on input line 366.
 (pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
-<podstawowa_wizualizacja_squareMeters_sama_sprzedaz.png, id=161, 1003.75pt x 702.625pt>
+<podstawowa_wizualizacja_squareMeters_sama_sprzedaz.png, id=237, 1003.75pt x 702.625pt>
 File: podstawowa_wizualizacja_squareMeters_sama_sprzedaz.png Graphic file (type png)
 <use podstawowa_wizualizacja_squareMeters_sama_sprzedaz.png>
-Package pdftex.def Info: podstawowa_wizualizacja_squareMeters_sama_sprzedaz.png  used on input line 320.
+Package pdftex.def Info: podstawowa_wizualizacja_squareMeters_sama_sprzedaz.png  used on input line 372.
 (pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
 
 
-[8]
+[9]
 
-[9 <./podstawowa_wizualizacja_centreDistance_sama_sprzedaz.png> <./podstawowa_wizualizacja_hasBalcony_sama_sprzedaz.png> <./podstawowa_wizualizacja_poiCount_sama_sprzedaz.png> <./podstawowa_wizualizacja_price_sama_sprzedaz.png> <./podstawowa_wizualizacja_rooms_sama_sprzedaz.png> <./podstawowa_wizualizacja_squareMeters_sama_sprzedaz.png>]
+[10 <./podstawowa_wizualizacja_centreDistance_sama_sprzedaz.png> <./podstawowa_wizualizacja_hasBalcony_sama_sprzedaz.png> <./podstawowa_wizualizacja_poiCount_sama_sprzedaz.png> <./podstawowa_wizualizacja_price_sama_sprzedaz.png> <./podstawowa_wizualizacja_rooms_sama_sprzedaz.png> <./podstawowa_wizualizacja_squareMeters_sama_sprzedaz.png>]
+Overfull \hbox (39.85187pt too wide) in paragraph at lines 461--474
+ [][] 
+ []
 
-[10]
+<boxplot_price.png, id=254, 1003.75pt x 702.625pt>
+File: boxplot_price.png Graphic file (type png)
+<use boxplot_price.png>
+Package pdftex.def Info: boxplot_price.png  used on input line 481.
+(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
+<boxplot_price_clean.png, id=255, 1003.75pt x 702.625pt>
+File: boxplot_price_clean.png Graphic file (type png)
+<use boxplot_price_clean.png>
+Package pdftex.def Info: boxplot_price_clean.png  used on input line 487.
+(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
+<boxplot_squareMeters.png, id=256, 1003.75pt x 702.625pt>
+File: boxplot_squareMeters.png Graphic file (type png)
+<use boxplot_squareMeters.png>
+Package pdftex.def Info: boxplot_squareMeters.png  used on input line 495.
+(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
+<boxplot_squareMeters_clean.png, id=257, 1003.75pt x 702.625pt>
+File: boxplot_squareMeters_clean.png Graphic file (type png)
+<use boxplot_squareMeters_clean.png>
+Package pdftex.def Info: boxplot_squareMeters_clean.png  used on input line 501.
+(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
+<boxplot_rooms.png, id=258, 1003.75pt x 702.625pt>
+File: boxplot_rooms.png Graphic file (type png)
+<use boxplot_rooms.png>
+Package pdftex.def Info: boxplot_rooms.png  used on input line 509.
+(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
+<boxplot_rooms_clean.png, id=259, 1003.75pt x 702.625pt>
+File: boxplot_rooms_clean.png Graphic file (type png)
+<use boxplot_rooms_clean.png>
+Package pdftex.def Info: boxplot_rooms_clean.png  used on input line 515.
+(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
+
+
+[11]
+<boxplot_poiCount.png, id=270, 1003.75pt x 702.625pt>
+File: boxplot_poiCount.png Graphic file (type png)
+<use boxplot_poiCount.png>
+Package pdftex.def Info: boxplot_poiCount.png  used on input line 527.
+(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
+<boxplot_poiCoint_clean.png, id=271, 1003.75pt x 702.625pt>
+File: boxplot_poiCoint_clean.png Graphic file (type png)
+<use boxplot_poiCoint_clean.png>
+Package pdftex.def Info: boxplot_poiCoint_clean.png  used on input line 533.
+(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
+<boxplot_centreDistance.png, id=272, 1003.75pt x 702.625pt>
+File: boxplot_centreDistance.png Graphic file (type png)
+<use boxplot_centreDistance.png>
+Package pdftex.def Info: boxplot_centreDistance.png  used on input line 541.
+(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
+<boxplot_centreDistance_clean.png, id=273, 1003.75pt x 702.625pt>
+File: boxplot_centreDistance_clean.png Graphic file (type png)
+<use boxplot_centreDistance_clean.png>
+Package pdftex.def Info: boxplot_centreDistance_clean.png  used on input line 547.
+(pdftex.def)             Requested size: 212.91577pt x 149.03513pt.
+
+
+[12 <./boxplot_price.png> <./boxplot_price_clean.png> <./boxplot_squareMeters.png> <./boxplot_squareMeters_clean.png> <./boxplot_rooms.png> <./boxplot_rooms_clean.png>]
+
+[13 <./boxplot_poiCount.png> <./boxplot_poiCoint_clean.png> <./boxplot_centreDistance.png> <./boxplot_centreDistance_clean.png>]
 Rozdzia\l  3.
 
 
-[11
+[14
 
 ]
+
+[15]
+
+[16]
 Rozdzia\l  4.
+<metoda_lokcia.png, id=324, 871.00406pt x 581.92406pt>
+File: metoda_lokcia.png Graphic file (type png)
+<use metoda_lokcia.png>
+Package pdftex.def Info: metoda_lokcia.png  used on input line 684.
+(pdftex.def)             Requested size: 332.68385pt x 222.26112pt.
 
 
-[12
+[17
 
-]
+ <./metoda_lokcia.png>]
+<dendrogram.png, id=334, 803.0pt x 602.25pt>
+File: dendrogram.png Graphic file (type png)
+<use dendrogram.png>
+Package pdftex.def Info: dendrogram.png  used on input line 731.
+(pdftex.def)             Requested size: 377.0444pt x 282.79103pt.
+
+
+[18]
+
+[19 <./dendrogram.png>]
 Rozdzia\l  5.
 
 
-[13
+[20
 
 ]
-Rozdzia\l  6.
 
+[21]
 
-[14
+[22
 
 ] (./main.aux)
  ***********
@@ -908,21 +989,21 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 1CBA45ACC8A460B8122B95EB3DC0E597;2699.
+(rerunfilecheck)             Checksum: 74E5FA3A99EC1B4335DA90B21DF2C2E3;5153.
  ) 
 Here is how much of TeX's memory you used:
- 35176 strings out of 473201
- 757955 string characters out of 5720299
- 1176742 words of memory out of 5000000
- 57921 multiletter control sequences out of 15000+600000
- 568855 words of font info for 51 fonts, out of 8000000 for 9000
+ 35333 strings out of 473201
+ 761534 string characters out of 5720299
+ 1178256 words of memory out of 5000000
+ 58040 multiletter control sequences out of 15000+600000
+ 569876 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,8n,93p,1694b,604s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on main.pdf (15 pages, 312424 bytes).
+ 84i,9n,93p,1694b,604s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
+Output written on main.pdf (23 pages, 524200 bytes).
 PDF statistics:
- 261 PDF objects out of 1000 (max. 8388607)
- 194 compressed objects within 2 object streams
- 43 named destinations out of 1000 (max. 500000)
- 206 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 480 PDF objects out of 1000 (max. 8388607)
+ 360 compressed objects within 4 object streams
+ 78 named destinations out of 1000 (max. 500000)
+ 370 words of extra memory for PDF output out of 10000 (max. 10000000)
 
