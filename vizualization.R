@@ -458,5 +458,83 @@ dev.off()
 colSums(is.na(tabela_miasto[, c("price", "squareMeters", "rooms",
                                 "poiCount", "centreDistance", "hasBalcony")]))
 
+# 1. Wybór kolumn
+zmienne <- c("price", "squareMeters", "rooms", "poiCount", "centreDistance", "hasBalcony")
+dane_temp <- tabela_clean[, zmienne]
+
+# 2. Bezpieczna konwersja na liczby
+# Zamieniamy wszystko na tekst, a potem na czynniki i liczby - to zadziała dla TRUE/FALSE oraz "yes"/"no"
+dane_temp$hasBalcony <- as.numeric(as.factor(as.character(dane_temp$hasBalcony)))
+
+# Upewniamy się, że wszystko jest numeryczne
+dane_numeryczne <- as.data.frame(lapply(dane_temp, function(x) as.numeric(as.character(x))))
+
+# 3. Usuwamy wiersze z brakami danych (NA) - kluczowe PO konwersji
+dane_clean <- na.omit(dane_numeryczne)
+
+# 4. Usuwamy kolumny, które mają stałą wartość (zero variance)
+# Standaryzacja takich kolumn zawsze wyrzuca NaN
+zmiennosc <- sapply(dane_clean, sd)
+dane_final <- dane_clean[, zmiennosc > 0]
+
+if(ncol(dane_final) < ncol(dane_clean)) {
+  warning("Usunięto kolumny o zerowej zmienności, aby uniknąć błędów NaN.")
+}
+
+# 5. Standaryzacja
+dane_skalowane <- scale(dane_final)
+
+# 6. Sprawdzenie końcowe - jeśli tu jest TRUE, kmeans zadziała
+if(any(is.na(dane_skalowane)) | any(is.infinite(dane_skalowane))) {
+  stop("Dane nadal zawierają NA lub Inf. Sprawdź tabelę wejściową.")
+}
+
+# 7. Pętla dla metody łokcia
+wss <- (nrow(dane_skalowane)-1)*sum(apply(dane_skalowane, 2, var))
+for (i in 2:10) {
+  set.seed(123)
+  wss[i] <- sum(kmeans(dane_skalowane, centers=i, nstart=25)$withinss)
+}
+
+# Wykres
+plot(1:10, wss, type="b", pch=19, xlab="Liczba klastrów", ylab="WSS")
 
 
+
+# 1. Wykonanie ostatecznego k-means dla 3 klastrów
+set.seed(123)
+wynik_kmeans <- kmeans(dane_skalowane, centers = 3, nstart = 25)
+
+# 2. Stworzenie zmiennej centra_skupien
+# Używamy oryginalnych danych (dane_clean), żeby średnie były w złotówkach i metrach, a nie w skali -3 do 3
+centra_skupien <- aggregate(dane_clean, 
+                            by = list(Klaster = wynik_kmeans$cluster), 
+                            FUN = mean)
+
+# 3. Wyświetlenie wyników do wpisania w LaTeX
+print(round(centra_skupien, 2))
+
+
+# 1. Pobieramy reprezentatywną próbkę (100 obserwacji)
+# Robimy to na ustandaryzowanych danych, aby wynik był spójny z K-means
+set.seed(123)
+idx <- sample(1:nrow(dane_skalowane), 100)
+probowka <- dane_skalowane[idx, ]
+
+# 2. Obliczamy macierz odległości euklidesowych
+d <- dist(probowka, method = "euclidean")
+
+# 3. Wykonujemy klastrowanie hierarchiczne metodą Warda
+# TO JEST TWOJE BRAKUJĄCE 'fit_h'
+fit_h <- hclust(d, method = "ward.D2")
+
+# 4. Teraz generujemy plik PNG
+png("dendrogram.png", width = 800, height = 600)
+plot(fit_h, 
+     main = "Dendrogram - Analiza hierarchiczna (n=100)", 
+     xlab = "Indeks obserwacji", 
+     ylab = "Odległość (Wysokość)",
+     sub = "Metoda Warda")
+# Opcjonalnie: dodaj czerwone ramki pokazujące podział na 3 grupy
+rect.hclust(fit_h, k = 3, border = "red")
+dev.off()

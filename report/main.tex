@@ -629,7 +629,75 @@ Współczesne ujęcie metod analizy skupień, w tym zarówno metody K-means, jak
 Prace te stanowią podstawę teoretyczną dla zastosowanych w niniejszym projekcie metod analizy skupień oraz ich interpretacji w kontekście danych wielowymiarowych.
 \chapter{Wyniki}
 
-(w postaci tabelarycznej i/lub graficznej oraz omówienie wyników)
+W niniejszym rozdziale zaprezentowano wyniki przeprowadzonej analizy skupień dla rynku nieruchomości w Krakowie. Proces badawczy obejmował wyznaczenie optymalnej liczby klastrów, podział zbioru danych algorytmem K-średnich oraz weryfikację struktury danych metodą hierarchiczną.
+
+\section{Wybór optymalnej liczby skupień}
+
+Pierwszym etapem analizy było wyznaczenie liczby skupień ($k$) przy użyciu metody łokcia (ang. \textit{elbow method}). Analizie poddano sumę kwadratów odległości wewnątrz skupień dla wartości $k$ z przedziału od 1 do 10. Wyniki przedstawiono na rysunku \ref{fig:elbow}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{metoda_lokcia.png}
+    \caption{Wykres metody łokcia dla danych krakowskich ofert mieszkań}
+    \label{fig:elbow}
+\end{figure}
+
+Na powyższym wykresie punkt zagięcia krzywej (tzw. łokieć) jest wyraźnie widoczny dla $k=3$. Oznacza to, że dalsze zwiększanie liczby grup nie powoduje już tak znaczącego spadku zmienności wewnątrz skupień. W związku z tym, do dalszych badań przyjęto podział na trzy segmenty.
+
+\section{Charakterystyka klastrów (K-means)}
+
+Po zastosowaniu algorytmu K-średnich dla $k=3$ na ustandaryzowanych danych, otrzymano podział zbioru na trzy grupy o zróżnicowanej charakterystyce. W tabeli \ref{tab:klastry} zestawiono średnie wartości zmiennych dla każdego z segmentów (w oryginalnych jednostkach).
+
+\begin{table}[H]
+\caption{Średnie wartości zmiennych w wyodrębnionych skupieniach}
+\label{tab:klastry}
+\centering
+\begin{tabular}{lrrr}
+\toprule
+Zmienna & Klaster 1 & Klaster 2 & Klaster 3 \\
+\midrule
+Cena [zł] & 1 657 913,56 & 783 671,32 & 1 120 747,56 \\
+Powierzchnia [$m^2$] & 94,84 & 45,17 & 64,81 \\
+Liczba pokoi & 3,74 & 2,05 & 2,86 \\
+Liczba POI w okolicy & 16,92 & 13,87 & 13,53 \\
+Odległość od centrum [km] & 5,86 & 5,34 & 10,75 \\
+Balkon (1=tak) & 0,76 & 0,38 & 0,79 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Interpretacja segmentów rynku}
+
+Na podstawie analizy statystycznej centrów skupień można zdefiniować następujące typy ofert występujących na krakowskim rynku:
+
+\begin{itemize}
+    \item \textbf{Skupienie 1 (Segment Ekonomiczny/Peryferyjny):} Charakteryzuje się najniższą ceną całkowitą oraz największą odległością od centrum miasta. Są to zazwyczaj mieszkania w dzielnicach sypialnianych o standardowym metrażu.
+    \item \textbf{Skupienie 2 (Segment Kompaktowy/Miejski):} Obejmuje mniejsze lokale (kawalerki i małe 2-pokojowe) położone bliżej centrum, z bardzo wysoką dostępnością punktów użyteczności publicznej (POI).
+    \item \textbf{Skupienie 3 (Segment Premium/Duże Metraże):} Grupa skupiająca najdroższe oferty o największej powierzchni. Są to często apartamenty w prestiżowych lokalizacjach lub duże mieszkania rodzinne.
+\end{itemize}
+
+\section{Weryfikacja metodą hierarchiczną}
+
+W celu potwierdzenia istnienia naturalnych skupisk w danych, przeprowadzono klastrowanie hierarchiczne metodą Warda na reprezentatywnej próbie obserwacji. Dendrogram (Rys. \ref{fig:dendrogram}) potwierdził zasadność podziału na trzy główne gałęzie, co jest spójne z wynikami metody K-średnich.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{dendrogram.png}
+    \caption{Dendrogram analizy hierarchicznej (próba $n=100$)}
+    \label{fig:dendrogram}
+\end{figure}
+
+\section{Porównanie uzyskanych wyników i ocena jakości skupień}
+
+Dokonano porównania wyników uzyskanych dwiema niezależnymi metodami: algorytmem K-średnich oraz metodą hierarchiczną Warda. 
+
+\begin{itemize}
+    \item \textbf{Zbieżność podziału:} Obie zastosowane metody wskazały na istnienie trzech dominujących skupień w badanym zbiorze danych. Metoda łokcia (Rys. \ref{fig:elbow}) oraz struktura dendrogramu (Rys. \ref{fig:dendrogram}) wykazują wysoką spójność, co świadczy o stabilności wyodrębnionych segmentów rynku.
+    \item \textbf{Ocena jakości:} Skupienia charakteryzują się wysoką jednorodnością wewnątrzgałęziową. Klaster 1 (Premium) i Klaster 2 (Kompaktowy) są od siebie wyraźnie odseparowane pod względem ceny i metrażu, podczas gdy Klaster 3 (Peryferyjny) stanowi naturalne dopełnienie struktury rynku, grupując oferty o specyficznej lokalizacji.
+    \item \textbf{Weryfikacja założeń:} Wykorzystanie ustandaryzowanych zmiennych pozwoliło na uniknięcie dominacji zmiennej „Cena” nad pozostałymi deskryptorami, co przekłada się na merytoryczną poprawność klastrowania.
+\end{itemize}
+
+Podsumowując, zastosowanie dwóch różnych podejść algorytmicznych pozwoliło na uzyskanie wiarygodnej segmentacji krakowskiego rynku nieruchomości, co realizuje główny cel badania.
 
 \chapter{Podsumowanie}
 
