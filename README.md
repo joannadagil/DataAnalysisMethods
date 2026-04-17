@@ -1,18 +1,13 @@
 # DataAnalysisMethods
-University course work 
 
 Dataset:
 https://www.kaggle.com/datasets/krzysztofjamroz/apartment-prices-in-poland
 
-------------------------------------------
+## Streszczenie
 
-Pushujcie może od razu na main?
-
-Dane znajdują się w folderze dane. Nie wiem czemu tam są po 2 wersje tych danych, ja zaczęłam robić na tych "apartments_pl_202x_xx.csv"
-
-Plik latexowy do raportu jest folderze raport, jest też tam ostatnio skompilowany pdf.
-
-
-Pierwszy kod do wizualizacji jest w vizualization.R
-na razie zrobiłam jakis jeden wykresik
-proponuję wszystkie robić w wymiarach 1920x1080?
+Celem pracy była identyfikacja jednorodnych grup ofert sprzedaży mieszkań w Krakowie z wykorzystaniem metod analizy skupień. 
+Materiał badawczy stanowiły dane pochodzące ze zbioru Kaggle obejmującego ogłoszenia mieszkaniowe z 15 największych miast Polski, przy czym analizę zawężono do rynku krakowskiego oraz wyłącznie do ofert sprzedaży. 
+W badaniu uwzględniono cechy opisujące mieszkania i ich otoczenie, takie jak cena, powierzchnia, liczba pokoi, liczba punktów zainteresowania w okolicy, odległość od centrum oraz informacja o posiadaniu balkonu. 
+Po wstępnym przygotowaniu danych, obejmującym ocenę kompletności danych, usunięcie obserwacji odstających oraz standaryzację zmiennych, zastosowano algorytm K-means oraz hierarchiczną metodę Warda. 
+Uzyskane wyniki wskazują na istnienie trzech interpretowalnych segmentów rynku mieszkaniowego, różniących się poziomem cen, wielkością lokali oraz położeniem względem centrum miasta. 
+Zbieżność wyników obu metod potwierdza wewnętrzne zróżnicowanie krakowskiego rynku mieszkań.
