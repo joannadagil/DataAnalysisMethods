@@ -345,7 +345,6 @@ INPUT ./miasta_najwiecej_wynajmow.png
 INPUT ./miasta_najwiecej_wynajmow.png
 INPUT ./miasta_najwiecej_wynajmow.png
 INPUT c:/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/ecbx1440.tfm
-INPUT c:/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/ectt1000.tfm
 INPUT c:/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm
 INPUT ./podstawowa_wizualizacja_centreDistance.png
 INPUT ./podstawowa_wizualizacja_centreDistance.png
@@ -378,6 +377,7 @@ INPUT ./podstawowa_wizualizacja_squareMeters.png
 INPUT ./podstawowa_wizualizacja_squareMeters.png
 INPUT ./podstawowa_wizualizacja_squareMeters.png
 INPUT ./podstawowa_wizualizacja_squareMeters.png
+INPUT c:/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/ectt1000.tfm
 INPUT ./podstawowa_wizualizacja_centreDistance_sama_sprzedaz.png
 INPUT ./podstawowa_wizualizacja_centreDistance_sama_sprzedaz.png
 INPUT ./podstawowa_wizualizacja_centreDistance_sama_sprzedaz.png
