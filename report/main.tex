@@ -94,7 +94,7 @@
 \author{
 Joanna Dagil (231008),
 Liliana Grześkiewicz (236138),
-Piotr Szpatusko (223420),
+Piotr Szpatuśko (223420),
 Adam Włodarski (230983)
 }
 
@@ -201,45 +201,24 @@ Przywołane badania wskazują więc, że analiza skupień jest uzasadnionym narz
 
 
 
-
 \section{Zmienne wybrane do analizy}
 
-W analizie przyjęto podział zmiennych diagnostycznych na symulanty i destymulanty z punktu widzenia atrakcyjności mieszkania. Symulantami nazywa się cechy, których wyższe wartości są oceniane pozytywnie, natomiast destymulantami są cechy, których wzrost wpływa niekorzystnie na ocenę obiektu. Dobór zmiennych miał na celu uwzględnienie zarówno cech fizycznych mieszkania, jak i elementów związanych z jego lokalizacją oraz dostępnością infrastruktury w otoczeniu.
+Do przeprowadzenia analizy skupień wybrano sześć kluczowych zmiennych, które najlepiej opisują charakterystykę ofert na krakowskim rynku nieruchomości. Wszystkie obliczenia i transformacje danych zostały wykonane w programie \textbf{R}.
 
-\medskip
-
-Zmienne wybrane do analizy to:
-
-\begin{enumerate}[leftmargin=*, label=\arabic*.]
-    \item[] \textbf{Symulanty}
-
-    \item \texttt{squareMeters} -- powierzchnia mieszkania wyrażona w metrach kwadratowych
-
-    Zmienna ta opisuje wielkość lokalu mieszkalnego i należy do podstawowych cech charakteryzujących nieruchomość. Powierzchnia mieszkania wpływa bezpośrednio na komfort użytkowania, możliwości aranżacyjne oraz funkcjonalność przestrzeni. Większy metraż daje zazwyczaj większą swobodę zagospodarowania wnętrza i lepiej odpowiada na potrzeby gospodarstw domowych o większej liczbie członków. Z tego względu zmienna \texttt{squareMeters} została zakwalifikowana jako symulanta.
-
-    \item \texttt{rooms} -- liczba pokoi w mieszkaniu
-
-    Zmienna określa liczbę wydzielonych pomieszczeń mieszkalnych w lokalu, a więc w pewnym stopniu odzwierciedla jego układ funkcjonalny. Liczba pokoi ma istotne znaczenie z punktu widzenia użyteczności mieszkania, ponieważ wpływa na możliwość oddzielenia poszczególnych stref życia codziennego, takich jak wypoczynek, sen czy praca. Mieszkania z większą liczbą pokoi są często bardziej atrakcyjne dla rodzin oraz osób pracujących zdalnie. Dlatego zmienna \texttt{rooms} została uznana za symulantę.
-
-    \item \texttt{poiCount} -- liczba punktów zainteresowania w promieniu 500 metrów od mieszkania
-
-    Zmienna ta opisuje intensywność i dostępność infrastruktury w bezpośrednim otoczeniu nieruchomości. Obejmuje ona liczbę punktów zainteresowania znajdujących się w promieniu 500 metrów od mieszkania, takich jak sklepy, punkty usługowe, restauracje, placówki edukacyjne, przystanki komunikacji miejskiej czy inne obiekty użyteczności codziennej. Wyższa wartość tej zmiennej wskazuje na lepsze wyposażenie okolicy w usługi i udogodnienia, co zwiększa wygodę życia mieszkańców oraz atrakcyjność lokalizacji. W związku z tym \texttt{poiCount} została zakwalifikowana jako symulanta.
-
-    \item \texttt{hasBalcony} -- informacja o obecności balkonu w mieszkaniu
-
-    Zmienna ta ma charakter jakościowy i informuje, czy mieszkanie posiada balkon. Balkon stanowi dodatkową przestrzeń użytkową, która może pełnić funkcję rekreacyjną, wypoczynkową lub praktyczną. Obecność balkonu jest często postrzegana jako cecha podnosząca standard mieszkania, szczególnie w zabudowie wielorodzinnej. Na potrzeby analizy zmienna ta może zostać zakodowana binarnie, na przykład jako 1 dla odpowiedzi \texttt{yes} oraz 0 dla odpowiedzi \texttt{no}. Po takim przekształceniu wyższa wartość oznacza cechę bardziej pożądaną, dlatego \texttt{hasBalcony} potraktowano jako symulantę.
-
-    \item[] \textbf{Destymulanty}
-
-    \item \texttt{price} -- cena mieszkania
-
-    Zmienna określa całkowitą cenę oferowanej nieruchomości i stanowi jedną z najważniejszych cech z punktu widzenia nabywcy. Cena wpływa bezpośrednio na dostępność ekonomiczną mieszkania oraz możliwość jego zakupu przez potencjalnych klientów. Przy porównywaniu mieszkań wyższa cena oznacza zwykle mniejszą dostępność finansową, nawet jeśli może częściowo wynikać z lepszej lokalizacji lub wyższego standardu. Z tego względu, w kontekście oceny atrakcyjności mieszkania z perspektywy ekonomicznej, zmienna \texttt{price} została uznana za destymulantę.
-
-    \item \texttt{centreDistance} -- odległość mieszkania od centrum miasta w kilometrach
-
-    Zmienna ta opisuje położenie nieruchomości względem centralnej części miasta. Lokalizacja jest jednym z kluczowych czynników wpływających na wartość i atrakcyjność mieszkania, ponieważ determinuje dostęp do miejsc pracy, usług, transportu publicznego, oferty handlowej i kulturalnej. W warunkach dużego miasta mniejsza odległość od centrum jest zazwyczaj postrzegana jako cecha korzystna, gdyż wiąże się z lepszą dostępnością najważniejszych funkcji miejskich. Wobec tego wzrost wartości zmiennej \texttt{centreDistance} obniża atrakcyjność nieruchomości, dlatego została ona zakwalifikowana jako destymulanta.
-
-\end{enumerate}
+\begin{table}[H]
+\centering
+\caption{Opis zmiennych wykorzystanych w badaniu}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Zmienna} & \textbf{Opis merytoryczny} \\ \hline
+Cena & Całkowita cena ofertowa nieruchomości wyrażona w PLN. \\ \hline
+Powierzchnia & Metraż mieszkania podany w metrach kwadratowych ($m^2$). \\ \hline
+Liczba pokoi & Całkowita liczba pomieszczeń mieszkalnych. \\ \hline
+Odległość od centrum & Dystans w kilometrach od centrum Krakowa. \\ \hline
+Liczba POI & Liczba punktów użyteczności publicznej w promieniu 500m. \\ \hline
+Balkon & Zmienna binarna (1 – posiada balkon, 0 – brak). \\ \hline
+\end{tabular}
+\end{table}
 
 \section{Wstępna analiza danych}
 
@@ -566,7 +545,7 @@ hasBalcony & 0.64 & 1.00 & 0.00 & 1.00 & 0.48 & -0.60\\
 \end{figure}
 \chapter{Opis metod}
 
-W niniejszym rozdziale przedstawiono dwie metody analizy skupień zastosowane w ramach projektu, tj. algorytm K-średnich (K-means) oraz hierarchiczną analizę skupień metodą aglomeracyjną. Metody te należą do najczęściej stosowanych technik uczenia nienadzorowanego i umożliwiają grupowanie obiektów na podstawie ich podobieństwa mierzonego w przestrzeni wielowymiarowej.
+W niniejszym rozdziale przedstawiono dwie metody analizy skupień zastosowane w ramach projektu, tj. algorytm K-średnich (K-means) oraz hierarchiczną analizę skupień metodą aglomeracyjną. Metody te należą do najczęściej stosowanych technik uczenia nienadzorowanego i umożliwiają grupowanie obiektów na podstawie ich podobieństwa mierzonego w przestrzeni wielowymiarowej. Wszystkie etapy przetwarzania danych, począwszy od czyszczenia zbioru, przez statystyki opisowe, aż po zaawansowane algorytmy klastrowania, przeprowadzono w środowisku statystycznym \textbf{R}. Wykorzystano pakiety podstawowe oraz biblioteki wspomagające analizę danych wielowymiarowych.
 
 \section{Algorytm K-means}
 
